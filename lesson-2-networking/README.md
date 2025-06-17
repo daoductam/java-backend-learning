@@ -157,7 +157,7 @@ Hoạt động của HTTPS:
     * OSI layer: Tầng 6 – Presentation
 5. **Gửi HTTP Request đến server Shopee**
 
-   * 📦 Qua HTTP/HTTPS -> Ứng dụng: Tầng 7 – Application - Tầng 4 – TCP đảm bảo không mất gói
+   * Qua HTTP/HTTPS -> Ứng dụng: Tầng 7 – Application - Tầng 4 – TCP đảm bảo không mất gói
 6. **Server Shopee xử lý & phản hồi**
 
    *  Gửi lại qua HTTP Response. Server xác thực request, Truy xuất dữ liệu: sản phẩm hot, banner, user info nếu login và trả về HTML, CSS, JS, ảnh, JSON…
@@ -179,17 +179,17 @@ Hoạt động của HTTPS:
 | 1. Physical     | Tín hiệu truyền qua cáp/Wi-Fi             |
 
 Tóm tắt luồng: 
-[Client] Gõ https://shopee.vn
+* [Client] Gõ https://shopee.vn
    ↓
-DNS phân giải domain → IP (13.250.232.99)
+* DNS phân giải domain → IP (13.250.232.99)
    ↓
-TCP + TLS bắt tay bảo mật (SSL Certificate)
+* TCP + TLS bắt tay bảo mật (SSL Certificate)
    ↓
-Gửi HTTP request: GET /
+* Gửi HTTP request: GET /
    ↓
-[Server Shopee] xử lý → trả HTML, ảnh, JS...
+* [Server Shopee] xử lý → trả HTML, ảnh, JS...
    ↓
-Hiển thị trang Shopee → gọi thêm API sản phẩm
+* Hiển thị trang Shopee → gọi thêm API sản phẩm
 
 ---
 
