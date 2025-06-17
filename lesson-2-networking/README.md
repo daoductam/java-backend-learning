@@ -191,6 +191,17 @@ Tóm tắt luồng:
    ↓
 * Hiển thị trang Shopee → gọi thêm API sản phẩm
 
+**Sự cố mạng ???**
+* Nếu người dùng ko truy cập được trang web shopee.vn có thể do
+    - DNS server không phản hồi hoặc tên miền sai → Không phân giải được IP
+    - IP bị chặn bởi tường lửa hoặc cổng mạng nội bộ
+    - Kết nối mạng người dùng không ổn định hoặc bị mất
+    - Chứng chỉ SSL không hợp lệ → HTTPS handshake thất bại
+* Nếu người dùng truy cập trang web chậm, load hình ảnh chậm có thể do
+    - Độ trễ (Latency) cao: Do định tuyến mạng không tối ưu hoặc server đặt quá xa địa lý
+    - Băng thông thấp (Low Bandwidth): Mạng bị nghẽn, người dùng đang dùng chung kết nối với nhiều người khác
+    - Server Shopee quá tải: Không đủ tài nguyên để xử lý nhanh các request
+    - CDN không hoạt động hiệu quả: Ảnh/tệp tĩnh chưa được phân phối gần client
 ---
 
 
