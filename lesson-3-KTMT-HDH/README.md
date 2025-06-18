@@ -15,7 +15,7 @@
 | --------- | ------------------------------------ | --------------------------------- |
 | Khái niệm | Tiến trình là một chương trình đang  | Luồng là một thành phần con       |
 |           | được thực thi (đang chạy)            | của tiến trình. Một tiến trình có |
-|           |                                      | thể chạy đồng thời nhiều luồng    |
+                                                     thể chạy đồng thời nhiều luồng    
 | Bộ nhớ    | Các process là độc lập, không chia   | Các threads chia sẻ không gian    |
 |           | sẻ không gian nhớ với nhau           | nhớ                               |
 | Khởi tạo  | Cần nhiều system call để tạo nhiều   | Có thể tạo nhiều threads với      |
