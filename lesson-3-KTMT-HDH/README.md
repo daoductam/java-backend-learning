@@ -26,14 +26,17 @@
 | Giao tiếp | Cần sử dụng IPC, tốn kém hơn         | Ít tốn kém hơn so với process     |
 | Context   | Chậm hơn threads                     | Nhanh hơn nhiều so với process    |
 | switching |                                      |                                   |
+
 * 2 loại process: Single-threaded Process và Multi-threaded Process
 * Khi nào dùng?
+
 | Tình huống                                     | Nên dùng gì? | Lý do                                                                 |
 |------------------------------------------------|--------------|-----------------------------------------------------------------------|
 | Chạy các chương trình riêng biệt, độc lập      | Process      | Độc lập, an toàn, dễ kiểm soát lỗi và tài nguyên.                     |
 | Làm nhiều việc một lúc trong cùng chương trình | Thread       | Nhẹ hơn, chia sẻ bộ nhớ, tăng tốc độ phản hồi và hiệu năng.           |
 | Tách biệt xử lý nặng (AI, phân tích...)        | Process      | Tránh crash ảnh hưởng phần còn lại, dễ scale hoặc restart riêng biệt. |
 | Tải dữ liệu, gửi API nền, không chặn giao diện | Thread       | Giúp chương trình mượt mà, không bị đứng.                             |
+
 * Làm sao để OS chạy 100 tiến trình đồng thời nếu chỉ có 1 CPU?
     * OS xử lý bằng cách ảo hóa CPU. Ví dụ: Thực thi 1 process, tạm dừng nó và chạy 1 process khác...
     * Khái niệm này gọi là CPU time-sharing (time-slicing), giúp cho người dùng chạy nhiều process.
@@ -65,6 +68,7 @@ Nay máy tính có nhiều lõi, nhiều luồng, có thể làm nhiều việc 
     Tăng tốc độ xử lý
     Tránh “chết đứng” khi chờ I/O (đọc file, kết nối mạng…)
 *  Khi nào dùng cái nào?
+
 | Trường hợp                                     | Nên dùng                                  |
 | ---------------------------------------------- | ----------------------------------------- |
 | Ứng dụng nhỏ, đơn luồng, logic đơn giản        | **Blocking** để dễ phát triển, dễ debug   |
@@ -72,4 +76,5 @@ Nay máy tính có nhiều lõi, nhiều luồng, có thể làm nhiều việc 
 | Ứng dụng xử lý **nhiều request cùng lúc**      | **Non-Blocking** để tận dụng CPU hiệu quả |
 | App cần phản hồi nhanh (chat, game, real-time) | **Non-Blocking** để giảm độ trễ tối đa    |
 | Xử lý trên server nhiều kết nối, nhiều I/O     | **Non-Blocking** là giải pháp tốt nhất    |
+
 * Link tham khảo: https://codersontrang.wordpress.com/2017/09/05/blocking-va-non-blocking-trong-lap-trinh/
