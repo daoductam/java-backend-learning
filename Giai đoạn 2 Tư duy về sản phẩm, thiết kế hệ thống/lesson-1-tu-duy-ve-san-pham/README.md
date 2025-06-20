@@ -96,62 +96,38 @@
 ## 3. Phân tích tính năng: Thêm sản phẩm vào giỏ hàng của Shopee
 ### 3.1 Câu hỏi
 * Người dùng expect điều gì?
-Việc thêm hàng phải nhanh, hiển thị phản hồi rõ ràng.
-Sản phẩm đã thêm phải hiển thị trong giỏ hàng.
-Không bị trùng sản phẩm nếu đã thêm.
-Khi quay lại, giỏ hàng vẫn còn sản phẩm.
-Trải nghiệm phải mượt cả khi chưa đăng nhập.
+- Việc thêm hàng phải nhanh, hiển thị phản hồi rõ ràng.
+- Sản phẩm đã thêm phải hiển thị trong giỏ hàng.
+- Không bị trùng sản phẩm nếu đã thêm.
+- Khi quay lại, giỏ hàng vẫn còn sản phẩm.
 
 * Nếu sản phẩm trong giỏ hết hàng thì xử lý sao?
-Giữ sản phẩm trong giỏ, đánh dấu "hết hàng".
-Cấm đặt hàng nếu sản phẩm đã hết.
-Có thể đề xuất sản phẩm tương tự.
-Ở bước thanh toán: kiểm tra tồn kho lại.
+- Giữ sản phẩm trong giỏ, đánh dấu "hết hàng".
+- Cấm đặt hàng nếu sản phẩm đã hết.
 
 * Nếu user chưa đăng nhập, có được cho sản phẩm vào giỏ không?
-✅ Có!
-→ Lưu giỏ hàng tạm bằng localStorage (web) hoặc cache trong app.
-Khi đăng nhập:
-Có thể merge giỏ hàng guest với user.
-Nếu sản phẩm trùng → gộp số lượng hoặc lấy giỏ server là chính.
+- Không, sẽ được chuyển về màn hình đăng nhập
 
-* Nếu user spam gửi yêu cầu thêm 1 sản phẩm?
-Cần:
-Đặt key unique (userId + productId) → tránh trùng cart item.
-Nếu đã có → chỉ tăng quantity.
-Tầng frontend debounce click.
-Tầng backend idempotency + rate-limit.
+* Nếu người dùng cố tình gửi 1 loạt yêu cầu thêm 1 sản phẩm vào giỏ hàng? 
+- Có thể hiển thị lỗi hoặc không phản hồi
+- Số lượng bị cộng dồn không kiểm soát
+- Hệ thống có thể chặn tạm chức năng do phát hiện hành vi bất thường
+- Gánh nặng hệ thống (CPU, DB).
 
-* Thêm sản phẩm bị lỗi (VD: product không tồn tại)?
-Backend trả lỗi:
-json
-Sao chép
-Chỉnh sửa
-HTTP 404
-{
-  "error": "PRODUCT_NOT_FOUND",
-  "message": "Sản phẩm đã bị gỡ hoặc không còn tồn tại."
-}
-Frontend:
-Hiển thị thông báo rõ ràng.
-Không để mất thao tác của user.
+* Khi thêm sản phẩm vào bị lỗi (Ví dụ do product ko tồn tại trên hệ thống) thì phản hồi như nào cho KH?
+- Thông báo lỗi rõ ràng và dễ hiểu như "Sản phẩm này hiện không tồn tại" lên màn hình
 
 * Nếu mạng chậm, điều gì xảy ra? Có giải pháp?
-Request gửi đi nhưng phản hồi chậm → user không biết đã thêm chưa.
-Giải pháp:
-Dùng optimistic UI: hiển thị sản phẩm đã thêm ngay, nếu lỗi thì rollback.
-Hiển thị spinner/toast “Đang thêm…”
-Retry nhẹ nếu timeout.
+- Request gửi đi nhưng phản hồi chậm → user không biết đã thêm chưa.
+- Giải pháp: Dùng optimistic UI để hiển thị sản phẩm đã thêm ngay, nếu lỗi thì rollback.
 
 * Nếu backend chậm, ảnh hưởng user thế nào?
-Giỏ hàng phản hồi chậm → UX tệ, dễ click lại → trùng.
-Giải pháp:
-Cache tồn kho/sp info.
-Tối ưu query backend.
-Frontend xử lý lại UX như trên.
+- Giỏ hàng phản hồi chậm → UX tệ, dễ click lại → trùng.
+- Giải pháp: Cache tồn kho/sp info, Tối ưu query backend.
 
 ### 3.2 Thiết kế Requirements cho tính năng "Khách hàng thêm sản phẩm vào giỏ hàng"
 * Functional Requirements (Yêu cầu chức năng)
+
 | Mã  | Mô tả                                                               |
 | --- | ------------------------------------------------------------------- |
 | FR1 | User có thể thêm sản phẩm vào giỏ qua nút “Thêm vào giỏ”            |
@@ -162,6 +138,7 @@ Frontend xử lý lại UX như trên.
 | FR7 | Sau khi thêm thành công, hệ thống cập nhật lại icon giỏ hàng, và hiển thị thông báo “Thêm thành công”. |
 
 * Non-functional Requirements (NFR)
+
 | Mã   | Mô tả                                                        |
 | ---- | ------------------------------------------------------------ |
 | NFR1 | Tốc độ phản hồi API ≤ 300ms (95th percentile)                |
