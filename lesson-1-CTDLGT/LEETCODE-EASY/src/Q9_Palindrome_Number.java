@@ -23,7 +23,7 @@ public class Q9_Palindrome_Number {
     }
 
     /*
-    Ý tưởng
+    Ý tưởng - Time: O(n) space: O(n)
      - Chuyển số thành chuỗi rồi thành mảng các ký tự
      - Tạo danh sách từ mảng đó
      - Đảo ngược danh sách
@@ -38,10 +38,16 @@ public class Q9_Palindrome_Number {
     }
 
     /*
-    Đáp án
+    Đáp án - time O(n) space O(1)
+    - Nếu `x < 0` thì không phải palindrome vì dấu trừ chỉ xuất hiện ở đầu, không thể đối xứng.
+    - Chuyển `x` sang chuỗi `num`
+    - Dùng 2 con trỏ `l` (bên trái) và `r` (bên phải) để so sánh ký tự đối xứng dần về giữa.
+    - Nếu có bất kỳ cặp ký tự nào khác nhau thì return false
+    - Nếu so sánh hết mà không có sai khác, thì return true
      Tại sao lại tiếp cận theo cách này?
         Hiệu quả hơn vì chỉ cần so sánh trực tiếp các ký tự trong chuỗi, không cần tạo mảng hay danh sách phụ.
         Không tạo thêm biến không cần thiết (như mảng `a`, List `b`, List `c`...)
+
      */
 
 //    public static boolean isPalindrome(int x) {
