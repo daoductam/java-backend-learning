@@ -96,34 +96,34 @@
 ## 3. Phân tích tính năng: Thêm sản phẩm vào giỏ hàng của Shopee
 ### 3.1 Câu hỏi
 * Người dùng expect điều gì?
-- Việc thêm hàng phải nhanh, hiển thị phản hồi rõ ràng.
-- Sản phẩm đã thêm phải hiển thị trong giỏ hàng.
-- Không bị trùng sản phẩm nếu đã thêm.
-- Khi quay lại, giỏ hàng vẫn còn sản phẩm.
+    - Việc thêm hàng phải nhanh, hiển thị phản hồi rõ ràng.
+    - Sản phẩm đã thêm phải hiển thị trong giỏ hàng.
+    - Không bị trùng sản phẩm nếu đã thêm.
+    - Khi quay lại, giỏ hàng vẫn còn sản phẩm.
 
 * Nếu sản phẩm trong giỏ hết hàng thì xử lý sao?
-- Giữ sản phẩm trong giỏ, đánh dấu "hết hàng".
-- Cấm đặt hàng nếu sản phẩm đã hết.
+    - Giữ sản phẩm trong giỏ, đánh dấu "hết hàng".
+    - Cấm đặt hàng nếu sản phẩm đã hết.
 
 * Nếu user chưa đăng nhập, có được cho sản phẩm vào giỏ không?
-- Không, sẽ được chuyển về màn hình đăng nhập
+    - Không, sẽ được chuyển về màn hình đăng nhập
 
 * Nếu người dùng cố tình gửi 1 loạt yêu cầu thêm 1 sản phẩm vào giỏ hàng? 
-- Có thể hiển thị lỗi hoặc không phản hồi
-- Số lượng bị cộng dồn không kiểm soát
-- Hệ thống có thể chặn tạm chức năng do phát hiện hành vi bất thường
-- Gánh nặng hệ thống (CPU, DB).
+    - Có thể hiển thị lỗi hoặc không phản hồi
+    - Số lượng bị cộng dồn không kiểm soát
+    - Hệ thống có thể chặn tạm chức năng do phát hiện hành vi bất thường
+    - Gánh nặng hệ thống (CPU, DB).
 
 * Khi thêm sản phẩm vào bị lỗi (Ví dụ do product ko tồn tại trên hệ thống) thì phản hồi như nào cho KH?
-- Thông báo lỗi rõ ràng và dễ hiểu như "Sản phẩm này hiện không tồn tại" lên màn hình
+    - Thông báo lỗi rõ ràng và dễ hiểu như "Sản phẩm này hiện không tồn tại" lên màn hình
 
 * Nếu mạng chậm, điều gì xảy ra? Có giải pháp?
-- Request gửi đi nhưng phản hồi chậm → user không biết đã thêm chưa.
-- Giải pháp: Dùng optimistic UI để hiển thị sản phẩm đã thêm ngay, nếu lỗi thì rollback.
+    - Request gửi đi nhưng phản hồi chậm → user không biết đã thêm chưa.
+    - Giải pháp: Dùng optimistic UI để hiển thị sản phẩm đã thêm ngay, nếu lỗi thì rollback.
 
 * Nếu backend chậm, ảnh hưởng user thế nào?
-- Giỏ hàng phản hồi chậm → UX tệ, dễ click lại → trùng.
-- Giải pháp: Cache tồn kho/sp info, Tối ưu query backend.
+    - Giỏ hàng phản hồi chậm → UX tệ, dễ click lại → trùng.
+    - Giải pháp: Cache tồn kho/sp info, Tối ưu query backend.
 
 ### 3.2 Thiết kế Requirements cho tính năng "Khách hàng thêm sản phẩm vào giỏ hàng"
 * Functional Requirements (Yêu cầu chức năng)
