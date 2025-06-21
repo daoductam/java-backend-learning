@@ -131,10 +131,10 @@
 | Mã  | Mô tả                                                               |
 | --- | ------------------------------------------------------------------- |
 | FR1 | User có thể thêm sản phẩm vào giỏ qua nút “Thêm vào giỏ”            |
-| FR2 | Nếu chưa đăng nhập → chuyển sang trang đăng nhập                    |
-| FR3 | Khi login → chuyển sang trang chi tiết sản phẩm đã chọn             |
-| FR4 | Nếu sản phẩm đã tồn tại → chỉ tăng số lượng, không tạo mới          |
-| FR5 | Nếu sản phẩm không tồn tại → trả lỗi API trả lỗi 404                |
+| FR2 | Nếu User chưa đăng nhập thì hệ thống chuyển sang trang đăng nhập                    |
+| FR3 | Khi user login thì hệ thống chuyển sang trang chi tiết sản phẩm đã chọn             |
+| FR4 | Nếu sản phẩm đã tồn tại thì chỉ tăng số lượng, không tạo mới          |
+| FR5 | Nếu sản phẩm không tồn tại hệ thống trả lỗi API trả lỗi 404                |
 | FR7 | Sau khi thêm thành công, hệ thống cập nhật lại icon giỏ hàng, và hiển thị thông báo “Thêm thành công”. |
 
 * Non-functional Requirements (NFR)
