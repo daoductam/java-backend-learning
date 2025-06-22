@@ -127,25 +127,19 @@
 
 ### 3.2 Thiết kế Requirements cho tính năng "Khách hàng thêm sản phẩm vào giỏ hàng"
 * Functional Requirements (Yêu cầu chức năng)
-
-| Mã  | Mô tả                                                               |
-| --- | ------------------------------------------------------------------- |
-| FR1 | User có thể thêm sản phẩm vào giỏ qua nút “Thêm vào giỏ”            |
-| FR2 | Nếu User chưa đăng nhập thì hệ thống chuyển sang trang đăng nhập                    |
-| FR3 | Khi user login thì hệ thống chuyển sang trang chi tiết sản phẩm đã chọn             |
-| FR4 | Nếu sản phẩm đã tồn tại thì chỉ tăng số lượng, không tạo mới          |
-| FR5 | Nếu sản phẩm không tồn tại hệ thống trả lỗi API trả lỗi 404                |
-| FR7 | Sau khi thêm thành công, hệ thống cập nhật lại icon giỏ hàng, và hiển thị thông báo “Thêm thành công”. |
+- Hệ thống phải cho phép người dùng đã đăng nhập thêm sản phẩm vào giỏ hàng thông qua nút “Thêm vào giỏ hàng” trên trang chi tiết sản phẩm.
+- Hệ thống phải chuyển hướng người dùng chưa đăng nhập sang trang đăng nhập khi họ cố gắng thêm sản phẩm vào giỏ hàng.   
+- Nếu sản phẩm đã tồn tại trong giỏ hàng, hệ thống chỉ tăng số lượng thay vì tạo thêm dòng mới.
+- Nếu mã sản phẩm không tồn tại trong hệ thống, API phải trả về lỗi 404 “Product not found”.
+- Nếu sản phẩm đã tồn tại trong giỏ hàng, hệ thống phải tăng số lượng sản phẩm đó thay vì thêm dòng mới.
+- Sau khi thêm sản phẩm thành công, hệ thống phải cập nhật biểu tượng giỏ hàng (số lượng) và hiển thị thông báo “Thêm thành công”.
 
 * Non-functional Requirements (NFR)
 
-| Mã   | Mô tả                                                        |
-| ---- | ------------------------------------------------------------ |
-| NFR1 | Tốc độ phản hồi API ≤ 300ms (95th percentile)                |
-| NFR2 | Hệ thống chịu tải tối thiểu 1000 req/s (scalable)            |
-| NFR3 | API đảm bảo **idempotent** (ngăn thêm trùng)                 |
-| NFR4 | Giỏ hàng được lưu cache tối ưu (Redis/memory/localStorage)   |
-| NFR5 | Tương thích cả mobile app và web                             |
-| NFR6 | Xử lý trơn tru trong trường hợp mạng yếu (offline/slow mode) |
+- Hệ thống phải đảm bảo tốc độ phản hồi của các API không vượt quá 300ms đối với 95% tổng số request (95th percentile).
+- Hệ thống phải có khả năng xử lý tối thiểu 1.000 request mỗi giây mà không làm giảm hiệu năng đáng kể.
+- Mỗi API thêm sản phẩm vào giỏ hàng phải đảm bảo tính idempotent – cùng một yêu cầu được gửi nhiều lần chỉ gây ra một lần thêm duy nhất.
+- Hệ thống phải sử dụng bộ nhớ tạm (cache) như Redis hoặc local memory để lưu trữ giỏ hàng nhằm tăng tốc độ truy xuất dữ liệu.
+- Giao diện và API của hệ thống phải tương thích và hoạt động ổn định trên cả nền tảng web và ứng dụng di động (iOS, Android).
 
 * User Flow Diagram: .\Giai đoạn 2 Tư duy về sản phẩm, thiết kế hệ thống\lesson-1-tu-duy-ve-san-pham\add-product.jpg
