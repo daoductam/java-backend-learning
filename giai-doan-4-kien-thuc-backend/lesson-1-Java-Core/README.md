@@ -329,9 +329,172 @@ Ví dụ: Lớp "Xe" có các thuộc tính màu sắc, thương hiệu và mode
     - HashMap triển khai Map và có một lớp lồng nhau tĩnh (static nested class) tên là Node, lớp này triển khai giao diện Map.Entry.
     - HashMap duy trì một mảng các Node trong một biến trường (field) tên là table.
     - Kích thước của mảng này được Java quản lý tự động, và chỉ số (index) của từng phần tử được xác định bởi hàm băm (hash function).
-    -> HashMap không có thứ tự (unordered).
+    -> HashMap không có thứ tự.
 - LinkedHashMap: tập hợp các cặp key–value, trong đó các key được duy trì theo thứ tự thêm vào (insertion order).
 - TreeMap: TreeMap thì được sắp xếp theo key thì được sắp xếp theo key -> cần phải triển khai Comparable hoặc được truyền vào một Comparator tùy chỉnh khi khởi tạo TreeMap
 - EnumMap: là một implementation đặc biệt của Map, được thiết kế riêng để sử dụng với các khóa kiểu enum.
     - Tất cả các khóa (key) trong EnumMap phải thuộc cùng một kiểu enum, và chúng được sắp xếp theo thứ tự tự nhiên, tức là theo giá trị  (chỉ số vị trí) của các hằng số enum.
     - EnumMap cung cấp chức năng tương tự như HashMap, với các thao tác cơ bản (put, get, containsKey, v.v.) có độ phức tạp thời gian hằng số O(1)
+
+### Stream API
+#### Khái niệm
+- Stream là một cơ chế để mô tả toàn bộ chuỗi các xử lý, trước khi thực sự thực thi chúng.
+- Tại sao dùng stream ?
+    - giúp việc xử lý dữ liệu trở nên đồng nhất, ngắn gọn và có thể lặp lại, theo cách giống với ngôn ngữ truy vấn có cấu trúc (SQL) trong cơ sở dữ liệu.
+    - khi làm việc với các tập hợp dữ liệu lớn, parallel streams (luồng song song) có thể mang lại lợi thế về hiệu năng.
+- Ví dụ:
+    ![alt text](image.png)
+    - Nguồn dữ liệu (source) là đầu vào, và kết quả của thao tác kết thúc (terminal operation) là đầu ra. Mọi thứ ở giữa sẽ không xảy ra cho đến khi có một thao tác kết thúc yêu cầu bắt đầu thực thi.
+#### Cách sử dụng
+- Đặc điểm: 
+    - Lazy stream - Các thao tác trung gian trong Stream không được thực thi ngay lập tức khi bạn khai báo chúng.
+    - Các phép tính (tính toán) trong Stream được tối ưu hóa.
+        - thay đổi thứ tự các thao tác trung gian
+        - gộp các thao tác lại
+        - bỏ qua một số thao tác nếu thấy không cần thiết.
+    - Không thể tái sử dụng stream
+- Các phương thức: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#method-summary
+- Kiểu dữ liệu của Stream có thể thay đổi khi quá trình pipeline tiến hành.
+![Thay đổi kiểu dữ liệu](image-1.png)
+- Một số phương thức: 
+![8 method](image-2.png)
+![alt text](image-3.png)
+- Ngôn ngữ khai báo của các thao tác Stream giống với các câu lệnh truy vấn (query).
+    - Ví dụ: Trong Stream:
+        - filter() tương đương với mệnh đề WHERE
+        - sorted() giống như ORDER BY
+        - limit() tương tự LIMIT
+        - distinct() đúng như trong SQL: loại bỏ phần tử trùng
+- Thao tác kết thúc (terminal operations) 
+    - Tìm các phần tử phù hợp, hầu hết đều sử dụng biểu thức lambda với Predicate làm điều kiện.
+        - allMatch
+        - anyMatch
+        - findAny
+        - findFirst1
+        - noneMatch
+    - Chuyển đổi dữ liệu trong stream thành một collection hoặc một kiểu tham chiếu khác.  
+        - collect
+        - reduce
+        - toArray
+        - toList
+    - Tổng hợp thông tin, như đếm số phần tử, hoặc tìm giá trị nhỏ nhất hoặc lớn nhất, và không cần truyền đối số.  
+        - average
+        - count
+        - max
+        - min
+        - sum
+        - summaryStatistics
+    - Một số phương thức khác
+    ![alt text](image-5.png)
+    ![alt text](image-6.png)
+- Optional là một lớp generic, với mục đích làm một vùng chứa (container) cho một giá trị có thể có hoặc không (null).
+    - Lớp này được tạo ra nhằm giải quyết vấn đề NullPointerException, một trong những lỗi phổ biến nhất trong Java.
+    - Kiểu dữ liệu này chủ yếu được sử dụng làm kiểu trả về của phương thức, trong những điều kiện cụ thể.
+    - Optional chỉ là một lớp generic khác, vì vậy khai báo nó giống như bất kỳ kiểu dữ liệu nào khác, có tham số kiểu (type arguments).Tuy nhiên,  không tạo một đối tượng Optional bằng cách sử dụng từ khóa new. -> sử dụng các phương thức tạo tĩnh: empty, of, and ofNullable
+    - Nhược: Optional sẽ tiêu tốn nhiều bộ nhớ hơn, có thể làm chậm quá trình thực thi, làm tăng độ phức tạp và không thể tuần tự hóa (not serializable). 
+    -> không nên sử dụng Optional cho các trường (fields) hoặc tham số của phương thức (method parameters).
+- *flatMap* thực hiện các phép biến đổi một thành nhiều (one-to-many) trên các phần tử trong pipeline của stream.
+    - Nó được gọi là flatMap vì nó làm phẳng (flatten) các kết quả từ một cấu trúc dữ liệu phân cấp, thành một stream duy nhất gồm các phần tử cùng kiểu.
+    - Sự khác biệt nằm ở kiểu trả về của hàm truyền vào:
+        - Với map, bạn trả về một đối tượng mới — nghĩa là chuyển đổi từng phần tử thành một phần tử khác. map(Function<T, R> mapper)
+        - Với flatMap, bạn trả về một Stream, nghĩa là bạn chuyển đổi một phần tử thành một stream các phần tử. flatMap(Function<T, Stream> mapper)
+#### Khi nào sử dụng
+- Khi cần thao tác với dữ liệu theo chuỗi (pipeline)
+- Khi cần viết code ngắn gọn, dễ đọc
+- Khi cần xử lý song song (parallel processing)
+- Khi không cần thay đổi dữ liệu gốc
+- Khi thao tác phức tạp với tập dữ liệu lớn
+- *KHÔNG NÊN DÙNG KHI*: 
+    - Khi thao tác đơn giản và có thể dùng for
+    - Khi cần cập nhật trạng thái hoặc thao tác với chỉ số (index)
+    - Khi cần serialize dữ liệu hoặc duy trì trạng thái
+### Generics
+#### Khái niệm
+- Java hỗ trợ các kiểu tổng quát (generic), chẳng hạn như class, record và interface.Nó cũng hỗ trợ cả các phương thức tổng quát.
+- Ví dụ
+    - Regular Class: class a {private String b}
+    - Generic Class: class a<T> {private T b}
+- Tham số Generic: dùng các ký tự đơn (chẳng hạn như T, E, K, V) là quy ước phổ biến. 
+    - E cho Element (được sử dụng rộng rãi trong Java Collections Framework).
+    - K cho Key (dùng trong các kiểu dữ liệu ánh xạ, như Map).
+    - N cho Number.
+    - T cho Type.
+    - V cho Value.
+    - S, U, V, v.v. được dùng cho kiểu thứ 2, thứ 3, thứ 4 tương ứng.
+- Các lớp generic có thể được giới hạn (bounded), nhằm giới hạn các kiểu dữ liệu có thể sử dụng chúng.
+    - Ví dụ: class Team<T extends Player> thì extends không có nghĩa là kiểu T mở rộng từ Player mà có nghĩa là kiểu tham số hóa T phải là Player hoặc một kiểu con của Player
+- Kiểu tham số của phương thức generic là độc lập với kiểu tham số của lớp generic.Nếu dùng cùng một tên kiểu tham số (như T) cho cả lớp và phương thức, thì T được khai báo trong phương thức sẽ là một kiểu khác, tách biệt với T của lớp.
+#### Cách sử dụng
+- Cách viết:
+    - Generic Class: public class Team<T> {}
+    - Generic Method: public <T> void doSt(T t){}
+- Đối số kiểu (type argument) là kiểu cụ thể sẽ được sử dụng, và nó được chỉ định tại vị trí tham chiếu kiểu: Team<*BaseballPlayer*> baseballTeam = new Team<>();
+- Ký tự đại diện (wildcard) chỉ có thể được sử dụng trong đối số kiểu (type argument), không thể dùng trong khai báo tham số kiểu (type parameter declaration).Wildcard được biểu diễn bằng ký tự ?
+    - Ví dụ: List<?> list
+- Ký tự đại diện (wildcard) có thể không giới hạn (unbounded), hoặc chỉ định một ràng buộc trên (upper bound) hoặc một ràng buộc dưới (lower bound).
+    - Giới hạn trên: ? extends Number -> Chấp nhận List<Integer>, List<Double>, ...
+    - Giới hạn dưới: ? super Integer -> Chấp nhận List<Integer>, List<Number>, List<Object>
+- Có thể sử dụng nhiều kiểu để đặt một ràng buộc trên (upper bound) chặt chẽ hơn, bằng cách sử dụng dấu & giữa các kiểu.
+    - Ví dụ: public class Team<T extends Person & Comparable<T> & Serializable>
+#### Khi nào sử dụng
+- Dữ liệu lưu trữ trong collection (List, Set, Map)
+- Viết class/method có thể dùng với nhiều kiểu dữ liệu
+- Cần an toàn kiểu dữ liệu tại compile-time
+
+### Unit Testing 
+#### Khái niệm
+- Test: 
+    - Mục đích là để xác định các vấn đề hay lỗi có thể xảy ra
+    - Giúp cho phát hiện các vấn đề trước khi software được triển khai (release),
+    khiến cho việc sửa lỗi dễ dàng hơn và ít tốn chi phí hơn.
+    - Nâng cao chất lượng sản phẩm bằng cách kiểm tra yêu cầu của các chức
+    năng đã được thỏa mãn.
+    - Nâng cao trải nghiệm người dùng: ví dụ như UI/UX test
+-  Unit test: là phương pháp tự động kiểm thử các đơn vị nhỏ nhất của phần mềm để đảm bảo chúng hoạt động đúng theo kỳ vọng.
+    - dùng để test các mô-đun/component độc lập
+    - thường được viết bởi developer
+    - thời gian thực thi ngắn, dễ dàng xử lý kết quả
+    - dễ dàng maintain và update khi cần thiết
+#### JUnit
+- JUnit là một framework unit testing của Java
+- Junit hỗ trợ các annotations:
+    - @Test, @BeforeEach @AfterEach
+    - @BeforeAll @AfterAll
+    - @Ignore.....
+- *Best practices*: Cách đặt tên test nên gồm 3 phần:
+    - tên của hàm cần test
+    - kịch bản cần test
+    - kết quả kì vọng khi chạy kịch bản
+- *Best practices*: cài đặt test nên gồm 3 phần:
+    - Arrange (Given): khởi tạo các objects
+    - Act (When): các hành động (phương thức) với objects
+    - Assert (Then): kiểm tra các điều kiện cần được thỏa mãn
+#### Khi nào dùng test ? 
+- Trong giai đoạn phát triển: ngay sau khi viết hàm/class mới — hoặc theo cách làm TDD: viết test trước, sau đó code để pass test 
+- Trước khi refactor: đảm bảo không phá hỏng chức năng hiện có — unit test như lưới an toàn .
+- Cho các logic quan trọng hoặc phức tạp: nếu code dễ sai hoặc ảnh hưởng lớn, unit test giúp kiểm tra kỹ hơn .
+#### Cách sử dụng 
+- Chọn framework phù hợp ngôn ngữ: Java -> JUnit 5
+- Viết test theo AAA
+    - Arrange: khởi tạo đối tượng, cấu hình stub/mock.  
+    - Act: gọi hàm đang test.
+    - Assert: kiểm tra kết quả với expected value.
+- Chạy và kiểm tra
+- Tái cấu trúc test code nếu cần (ví dụ: tách mock, dùng parameterized tests).
+- Tích hợp vào CI/CD để tự động kiểm thử mỗi commit — đảm bảo chất lượng duy trì lâu dài.
+### Ví dụ
+- public class Calculator { /   
+  public int add(int a, int b) { return a + b; } /
+}/
+- class CalculatorTest {
+  @Test
+  void add_TwoIntegers_ReturnsSum() { /
+    // Arrange /
+    Calculator calc = new Calculator(); /
+    // Act /
+    int result = calc.add(2, 3); /
+    // Assert /
+    assertEquals(5, result); /
+  } /
+} /
+        
