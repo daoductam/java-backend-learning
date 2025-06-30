@@ -154,6 +154,8 @@ Ví dụ: Lớp "Xe" có các thuộc tính màu sắc, thương hiệu và mode
     - sort(List list): Sắp xếp các phần tử trong danh sách theo thứ tự tăng dần.
 #### List
 - Khái niệm: dạng tập hợp các phần tử được sắp theo thứ tự (còn được gọi là dãy tuần tự) và trong đó cho phép lặp (hai phần tử giống nhau).
+- Một mảng (array) trong Java là mutable — tức là thay đổi giá trị của các phần tử bên trong nó.
+Tuy nhiên, không thể thay đổi kích thước của mảng sau khi đã tạo. -> List: thêm, xóa phần tử và tự động thay đổi kích thước dãy phần tử 
 - Vì List là một interface, nên chúng ta không thể tạo các đối tượng từ nó. Để sử dụng các tính năng của List interface, chúng ta có thể sử dụng các class sau:
     - ArrayList
     - LinkedList
@@ -482,7 +484,7 @@ Ví dụ: Lớp "Xe" có các thuộc tính màu sắc, thương hiệu và mode
 - Chạy và kiểm tra
 - Tái cấu trúc test code nếu cần (ví dụ: tách mock, dùng parameterized tests).
 - Tích hợp vào CI/CD để tự động kiểm thử mỗi commit — đảm bảo chất lượng duy trì lâu dài.
-### Ví dụ
+#### Ví dụ
 - public class Calculator { /   
   public int add(int a, int b) { return a + b; } /
 }/
@@ -497,4 +499,451 @@ Ví dụ: Lớp "Xe" có các thuộc tính màu sắc, thương hiệu và mode
     assertEquals(5, result); /
   } /
 } /
+### Date Time
+#### Lý Thuyết 
+- java.time
+    - Date Time Classes: LocalDate, Local Time, LocalDateTime, OffSetDateTime, ZonedDateTime
+    - Các class khác: Instant, Duration, Period
+    - Enums: DayOfWeek {SUNDAY, MONDAY,....}, Month {JANUARY,....}
+- Java có các gói khác nằm dưới java.time: java.time.temporal và java.time.format. Ngoài ra còn có các gói java.time.zone và java.time.chrono nhưng ít khi dùng đến
+![alt text](image-19.png)
+- Gói java.time.temporal chứa các interface quan trọng mà các lớp trong java.time triển khai.
+    - Các interface như Temporal và TemporalAccessor, mô tả một cách tiếp cận thống nhất để đọc từ hoặc ghi vào một đối tượng ngày giờ.
+    - Các interface như TemporalAdjuster, TemporalAmount, TemporalField và TemporalUnit thường được sử dụng làm tham số cho các phương thức, nhằm lựa chọn thông tin cụ thể mà bạn muốn lấy ra từ một đối tượng ngày giờ.
+    - Có 2 enum: ChronoField và ChronoUnit. 
+    - Lớp TemporalAdjusters là một lớp trợ giúp, dùng để trả về các hiện thực cụ thể của TemporalAdjuster, giúp bạn lấy ra các mốc thời gian hữu ích như ngày đầu tiên của tháng, ngày cuối cùng của năm, v.v.
+- Gói java.time.format:
+    - Định dạng ngày giờ bằng cách sử dụng ký tự định dạng %t trong một chuỗi đã được định dạng. 
+    -> Gói java.time.format cung cấp nhiều tùy chọn hơn nữa, cũng như hỗ trợ cho việc địa phương hóa (localization) 
+    - Gói này cũng có các enum hỗ trợ định dạng ngày và giờ theo các kiểu xác định sẵn, gọi là Full, Long, Medium và Short
+#### Cách sử dụng
+##### LocalDate, LocalTime and LocalDateTime
+![alt text](image-20.png)
+- LocalDate, LocalTime and LocalDateTime - Những lớp phổ biến nhất để làm việc với Ngày và Giờ mà không cần xử lý thông tin về múi giờ
+    - Mỗi lớp này đều triển khai cả hai interface: Temporal và TemporalAccessor, cùng với các phương thức đi kèm từ các interface đó 
+    - Từ interface Temporal, có các phương thức cho phép cộng hoặc trừ đơn vị thời gian vào các đối tượng ngày giờ — đó là các phương thức plus và minus.
+    - Cũng có thể gán trực tiếp giá trị cho các trường thời gian trên một bản sao của đối tượng bằng cách sử dụng các phương thức *with*.
+    - Một số phương thức trên lớp LocalDate có mặt dưới nhiều hình thức tương tự trên bất kỳ đối tượng thời gian (temporal object) nào, thường có tiền tố như: at, get, và is.
+    ![alt text](image-7.png)
+- Có nhiều phương thức tĩnh (static) dùng để trả về một thể hiện mới của một lớp thời gian (temporal class).
+    ![alt text](image-21.png)
+    - Phương thức now() sẽ cung cấp một biểu diễn thời điểm hiện tại, tùy thuộc vào lớp bạn chỉ định (ví dụ: LocalDate.now(), LocalTime.now(), ZonedDateTime.now()...).
+    - Tạo các thể hiện bằng cách sử dụng nhiều phiên bản nạp chồng (overloaded) của phương thức of() — đây là một phương thức factory phổ biến, cho phép chỉ định cụ thể các giá trị như năm, tháng, ngày, giờ, phút...
+    - Sử dụng phương thức parse() với một chuỗi ký tự (thường là một chuỗi String) đã được định dạng sẵn, hoặc bạn có thể truyền vào một định dạng cụ thể.
+- Tất cả các thể hiện của các lớp thời gian trong gói java.time đều là bất biến (immutable) và an toàn khi sử dụng trong môi trường đa luồng (thread-safe).
+    - Khi gọi các phương thức ghi (thay đổi) như plus hoặc minus, chúng sẽ trả về một thể hiện mới, chứ không thay đổi đối tượng ban đầu.
+    -> Cần gán kết quả trả về của các phương thức này vào một biến. Thể hiện gốc sẽ không bị thay đổi.
+- Ngoài các phương thức từ các interface Temporal và TemporalAccessor, hầu hết các lớp triển khai còn có các phương thức bắt đầu với tiền tố at, get, và is, cũng như một phương thức format.
+    ![alt text](image-22.png)
+    - Các phương thức at cho phép bạn kết hợp các thể hiện thời gian.
+    Ví dụ: một đối tượng thời gian (LocalTime) có thể được kết hợp với LocalDate thông qua các phương thức atStartOfDay hoặc atTime, và trả về một đối tượng LocalDateTime.
+    - Các thể hiện ngày và giờ cũng triển khai interface Comparable, vì vậy mỗi lớp đều có phương thức compareTo để so sánh thứ tự thời gian giữa các đối tượng.
+    - Các phương thức get là đặc trưng cho từng lớp cụ thể.
+        - Đối với LocalDate, các phương thức lấy thông tin liên quan đến ngày, như: getYear, getMonth, getDayOfWeek, v.v.
+        - Đối với LocalTime, bạn sẽ sử dụng các phương thức như: getHour, getMinute, v.v.
+    - Mỗi lớp cũng hỗ trợ các phương thức so sánh như: isAfter, isBefore và isEqual, giúp so sánh các đơn vị ngày hoặc giờ.
+    - Ngoài ra, còn có phương thức format, cho phép xuất ra một chuỗi ngày giờ đã được định dạng.
+- Java lưu trữ các trường ngày và trường giờ một cách riêng biệt, dưới dạng các giá trị số.
+    - Các trường này có thể được truy xuất có hoặc không có ngữ cảnh từ các trường khác.
+    - Ví dụ, ta có thể lấy ngày trong tháng (day of the month) hoặc ngày trong năm (day of the year).
+        - LocalDate sử dụng một int để lưu năm, và short cho tháng và ngày.
+        - LocalTime sử dụng các byte cho giờ, phút, giây và một int cho nano giây.
+        - LocalDateTime có hai trường:
+            - Một trường ngày (date), kiểu LocalDate.
+            - Một trường giờ (time), kiểu LocalTime.
+- LocalDate là một lớp dùng để lưu trữ và quản lý ngày tháng, bao gồm năm, tháng và ngày, không liên quan đến múi giờ cụ thể.
+    - Loại ngày này thường được sử dụng cho các dịp như ngày kỷ niệm, ngày sinh, hoặc các ngày lễ đặc biệt như Cinco de Mayo (ngày 5 tháng 5) hoặc Lễ Tạ Ơn (Thanksgiving Day).
+    - Lớp này không có thành phần thời gian (giờ, phút, giây).
+- Lớp LocalTime cung cấp một mô tả về thời gian địa phương như hiển thị trên một đồng hồ treo tường.
+    - Lớp này không chứa thông tin về ngày và không liên quan đến múi giờ.
+    - Thời gian được biểu diễn dưới dạng giờ-phút-giây, với độ chính xác lên đến nano giây, nếu có sẵn.
+- TemporalField vs. Temporal Unit
+    - TemporalField đại diện cho một trường cụ thể trong một đối tượng ngày giờ, chẳng hạn như MONTH_OF_YEAR (tháng trong năm), DAY_OF_WEEK (ngày trong tuần), hoặc HOUR_OF_DAY (giờ trong ngày).Nó định nghĩa các trường mà chúng ta thường nghĩ đến khi nói về các thành phần của ngày giờ, ví dụ như phần tháng của một ngày, hoặc phần giờ của một thời điểm.
+    - Ngược lại với các trường ngày giờ cụ thể, TemporalUnit đại diện cho một đơn vị hoặc khoảng thời gian, chẳng hạn như YEARS, MONTHS, DAYS hoặc MINUTES. Thay vì biểu diễn một phần của ngày hoặc giờ, TemporalUnit biểu diễn lượng thời gian mà bạn có thể sử dụng để đo khoảng cách giữa hai thời điểm.
+    - Các phương thức get() và with() nhận TemporalField làm tham số. Ví dụ: date.get(ChronoField.DAY_OF_MONTH)
+    - Các phương thức plus(), minus() và until() nhận TemporalUnit làm tham số.Ví dụ: date.plus(5, ChronoUnit.DAYS)
+
+##### Đôi chút về Instance, Period, Duration và Time Zones trong Time API 
+- Khái niệm 
+    - Một thời điểm cụ thể trên dòng thời gian — ví dụ như ngày 20 tháng 3 lúc 4:55 chiều — được gọi là một Instant (thời điểm tuyệt đối).
+    - Một khoảng thời gian (hay khoảng cách giữa hai mốc thời gian) trên dòng thời gian được gọi là một Period. Period thường được biểu diễn dưới dạng thời gian trôi qua, tính theo các đơn vị như năm, tháng, hoặc ngày.
+    - Còn khoảng thời gian được tính theo các đơn vị như giờ, phút hoặc giây, thì nó được gọi là một Duration.
+- Lớp Instant có hai trường dữ liệu: Một trường kiểu long để lưu số giây và Một trường kiểu int để lưu phần nano giây
+- Duration và Period không triển khai các interface Temporal hoặc TemporalAccessor.
+Thay vào đó, chúng triển khai interface TemporalAmount -> không đại diện cho một mốc thời gian cụ thể, mà là một lượng thời gian.
+- Một múi giờ (Time Zone) bao gồm hai phần: độ lệch so với UTC (UTC offset) và (nếu có) thông tin về Giờ Tiết Kiệm Ánh Sáng Ban Ngày (Daylight Savings Time).
+##### Cập nhật sau
+
+### Java IO
+#### Lý thuyết
+- Java IO Giao tiếp với bên ngoài JVM thông qua các tài nguyên (resources) - có thể là tệp tin, kết nối mạng, kết nối cơ sở dữ liệu, luồng dữ liệu (streams) hoặc socket. -> tương tác với hệ thống tệp, mạng và cơ sở dữ liệu, nhằm trao đổi thông tin.
+- Khi làm việc với các tài nguyên bên ngoài, xử lý ngoại lệ (exception handling) trở nên cực kỳ quan trọng.
+-  IO là từ viết tắt của Input/Output (nhập/xuất), và java.io là gói ban đầu chứa các kiểu dữ liệu hỗ trợ việc đọc và ghi dữ liệu từ các tài nguyên bên ngoài.
+- NIO: Non-blocking IO. NIO.2
+#### Cách sử dụng
+![alt text](image-18.png)
+- Lớp FileReader triển khai interface AutoCloseable thông qua lớp cha của nó là Reader. Lớp này mở tài nguyên tệp một cách ngầm định (implicitly).
+    - Ngược lại, khi tạo một thể hiện của lớp File -> không thực sự mở tệp đó. Thay vào đó, làm việc với một thứ gọi là file handler — một trình xử lý cho phép thực hiện các thao tác giống như hệ điều hành (OS), chẳng hạn như kiểm tra sự tồn tại, đổi tên, xóa tệp,
+- File Handle vs. File Resource
+    - File handle là một tham chiếu đến tệp được hệ điều hành sử dụng để theo dõi tệp đó. Nó là một đại diện trừu tượng của tệp, không chứa bất kỳ dữ liệu thực tế nào từ tệp.
+    - file resource là dữ liệu thực tế của tệp.Dữ liệu này được lưu trữ trên đĩa, và có thể được truy cập bởi hệ điều hành cũng như các ứng dụng.
+- Path là một interface, chứ không phải một lớp (class) như lớp File.
+    - Lớp Paths bao gồm duy nhất các phương thức tĩnh (static), và các phương thức này trả về đối tượng Path.
+    - Ngược lại, lớp Files có rất nhiều phương thức tĩnh dùng để thực hiện các thao tác trên tệp và thư mục.
+- Khi sử dụng lớp File, tạo một đối tượng (instance) bằng cách gọi constructor của File, và sau đó gọi phương thức trên đối tượng đó.
+- NIO2 - Sử dung Files and Path gồm cả File
+##### Sử dụng File, Path, Files
+- Chức năng của File System: 
+![alt text](image-8.png)
+- Các kiểu dữ liệu trong NIO.2 hỗ trợ những tính năng sau:
+    - Thao tác nhập/xuất tệp bất đồng bộ (Asynchronous file I/O operations).
+    - Khóa tệp (file locking), bao gồm khả năng khóa chi tiết hơn (granular locking) — tức là thay vì khóa toàn bộ tệp, bạn có thể khóa một vùng cụ thể của tệp.
+    - Truy xuất metadata của tệp (file metadata retrieval).
+    - Thao tác với liên kết biểu tượng (symbolic links).
+    - Thông báo hệ thống tệp (file system notifications) — cho phép theo dõi các thay đổi xảy ra trên một Path, thông qua các dịch vụ đã được đăng ký.
+    - Các kiểu dữ liệu trong NIO.2 là non-blocking (không chặn), nghĩa là chúng hỗ trợ truy cập tài nguyên bất đồng bộ bởi nhiều luồng.
+    - Chúng quản lý bộ nhớ hiệu quả hơn, bằng cách đọc và ghi tệp trực tiếp vào/ra bộ nhớ thông qua các bộ đệm (buffer), sử dụng một thành phần gọi là FileChannel. -> đọc từ hoặc ghi vào nhiều buffer trong một thao tác duy nhất.
+
+##### Methods on Path
+![alt text](image-9.png)
+- Phương thức Files.getAttribute trả về dữ liệu dưới dạng một đối tượng Object, điều này có nghĩa là có thể cần phải ép kiểu (cast) để sử dụng.
+- Ngoài các phương thức getAttributes và getAttribute, cũng có thể lấy một vài trường dữ liệu này thông qua các phương thức có tên cụ thể trong lớp Files, như được hiển thị ở cột cuối cùng.
+
+##### Sử dụng walkFileTree
+- Phương thức walkFileTree sẽ duyệt cây thư mục theo chiều sâu (depth-first) — tương tự như phương thức walk.
+    - Duyệt theo chiều sâu (depth-first) nghĩa là chương trình sẽ đệ quy truy cập tất cả các phần tử con trước khi truy cập đến các thư mục anh em (sibling) cùng cấp.
+    - Ngược lại, duyệt theo chiều rộng (breadth-first) có nghĩa là các nút phụ thuộc (con) chỉ được duyệt sau khi đã duyệt hết các nút anh em cùng cấp.
+- Vì Files.walkFileTree duyệt theo chiều sâu, nên nó cung cấp một cơ chế để tích lũy thông tin về tất cả các phần tử con, rồi truy ngược lên thư mục cha.
+    - Java cung cấp các điểm vào (entry points) trong quá trình duyệt để bạn có thể thực hiện các thao tác, thông qua giao diện FileVisitor.
+    - Giao diện này định nghĩa sẵn các phương thức (stub) mà bạn có thể triển khai tại những thời điểm cụ thể trong quá trình duyệt cây:
+        - Trước khi truy cập một thư mục
+        - Sau khi truy cập một thư mục
+        - Khi truy cập một tệp
+        - Khi không thể truy cập một tệp (lỗi)
+![alt text](image-10.png)
+##### Đọc văn bản từ một tệp sử dụng FileReader và BufferedReader
+- Cách làm cũ: dùng Files.readAllLines để đọc từng dòng từ một tệp
+-> Một lần đọc từ đĩa (disk read) -> tốn kém về mặt thời gian và tài nguyên hệ thống.
+- Bộ đệm tệp (file buffer) chỉ đơn giản là vùng nhớ tạm thời trong máy tính được sử dụng để lưu trữ dữ liệu trong quá trình đọc từ tệp. 
+    - Mục đích chính của nó là tăng hiệu quả truyền và xử lý dữ liệu.
+    -> giảm số lần tương tác trực tiếp hoặc đọc từ đĩa đối với thiết bị lưu trữ thực.
+- InputStream là một lớp trừu tượng, đại diện cho một luồng đầu vào gồm các byte.
+    - Nó biểu thị một nguồn dữ liệu và cung cấp một giao diện chung để đọc dữ liệu từ nguồn đó.
+    - Các InputStream có thể trả về luồng byte hoặc luồng ký tự.
+    - Đối với các tệp, lớp triển khai cụ thể là FileInputStream. Lớp này được sử dụng cho các tệp chứa dữ liệu nhị phân (binary data)
+    - Việc sử dụng trực tiếp phương thức read trên FileInputStream là rất không hiệu quả, vì vậy nếu định sử dụng FileInputStream, nên bao nó trong một BufferedInputStream để cải thiện hiệu suất.
+![alt text](image-11.png)
+- InputStream không phải là một nguồn (source) cho một pipeline của Stream.
+- Reader dùng để đọc các ký tự. 
+    - InputStreamReader là một cầu nối giữa luồng byte và luồng ký tự (byte streams → character streams).
+    - Nếu muốn đọc một luồng ký tự, thì nên sử dụng FileReader, vì FileReader thực hiện việc đọc có bộ đệm (buffered reading) để tăng hiệu suất.
+    - BufferedReader cũng thực hiện việc đọc có bộ đệm, nhưng sử dụng kích thước bộ đệm lớn hơn nhiều so với FileReader.(có thể tùy chỉnh kích thước bộ đệm của BufferedReader.)
+    - Ngoài ra, BufferedReader còn cung cấp các phương thức tiện lợi để đọc từng dòng văn bản.
+![alt text](image-12.png)
+##### Bộ ký tự (Character Sets) & Đọc văn bản từ tệp bằng chức năng của NIO2
+- Bộ ký tự (character set) là một tập hợp được định nghĩa trước gồm các ký hiệu, chữ cái, chữ số, dấu câu và các ký tự khác.
+    - Mỗi ký tự trong bộ được gán một mã số duy nhất, gọi là mã ký tự (code point), cho phép máy tính lưu trữ, truyền tải và hiểu văn bản.
+    - Hai trong số những bộ ký tự phổ biến nhất là ASCII và Unicode:
+        - ASCII là viết tắt của The American Standard Code for Information Interchange (Bộ mã tiêu chuẩn Mỹ để trao đổi thông tin). Đây là bộ ký tự lâu đời nhất và được sử dụng rộng rãi nhất.
+        - Unicode là một bộ ký tự mới hơn, được thiết kế để hỗ trợ tất cả các hệ thống chữ viết trên thế giới.
+- Mã hóa ký tự (character encoding) là quá trình gán các số cho các ký tự khác nhau, gọi là glyph.
+    - Một glyph có thể là một chữ cái trong bất kỳ ngôn ngữ nào, dấu câu, hoặc biểu tượng cảm xúc (emoji).
+    - Có nhiều cách khác nhau để biểu diễn các glyph bằng giá trị số.
+- Nên sử dụng cái nào ? 
+    - UTF-8 là lựa chọn tốt hơn cho hầu hết các ứng dụng.
+    - Nếu chỉ làm việc với các ký tự ASCII, thì ISO-8859-1 có thể là lựa chọn hiệu quả hơn về mặt hiệu suất.
+    - Java cung cấp sẵn các bảng mã phổ biến nhất dưới dạng một enum có tên là StandardCharsets.
+    https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/charset/StandardCharsets.html
+- Support on Files for reading data from a file
+![alt text](image-13.png)
+##### Ghi dữ liệu vào một tệp
+- Có rất nhiều lý do khiến bạn có thể muốn ghi dữ liệu vào một tệp.
+    - Lưu trữ dữ liệu người dùng
+    - Ghi nhật ký (log) các sự kiện của ứng dụng vào tệp log
+    - Lưu trữ dữ liệu cấu hình
+    - Xuất dữ liệu để trao đổi thông tin
+    - Hỗ trợ sử dụng ngoại tuyến thông qua bộ đệm tệp (file cache)
+    - Tạo ra các sản phẩm dạng tệp (file products)
+- Việc ghi dữ liệu vào tệp có khác biệt nhiều so với việc đọc từ tệp không?
+    - Một số khái niệm về việc ghi dữ liệu vào tệp tự nhiên sẽ tương tự với việc đọc dữ liệu từ tệp. Sử dụng các lớp có tên tương tự, nhưng thay vì InputStream thì bạn sẽ làm việc với OutputStream, sẽ có lớp FileWriter thay cho FileReader, và tương tự như vậy.
+    - Việc hiểu cách hoạt động của bộ đệm (buffered data) trở nên quan trọng hơn, cũng như quản lý các lần ghi đồng thời vào cùng một tệp từ nhiều luồng khác nhau.
+    - Ngoài ra, có nhiều cách khác nhau để mở một tệp để ghi.
+- Tất cả các tùy chọn khả dụng đều được định nghĩa trong một enum thuộc gói java.nio.file, có tên là StandardOpenOption. Các tùy chọn mặc định cho phương thức Files.write:
+![alt text](image-14.png)
+##### BufferedWriter, FileWriter, and PrintWriter
+- Các lớp Writer
+![alt text](image-15.png)
+- Xả bộ đệm đầu ra (flush output buffer) nghĩa là gì?
+    - Khi ghi tệp, có một bộ nhớ tạm (buffer) được sử dụng, và nó sẽ được lấp đầy khi các thao tác ghi được thực hiện trên lớp Writer.
+    - Việc ghi vật lý ra đĩa chỉ xảy ra khi bộ đệm được xả (flushed).
+    - Đây là quá trình lấy văn bản được lưu trong bộ đệm, ghi nó ra tệp đầu ra, và xóa sạch nội dung trong bộ đệm.
+    - Tần suất của việc xả bộ đệm này có thể bị ảnh hưởng bởi nhiều yếu tố, bao gồm:
+        - Kích thước của bộ đệm
+        - Tốc độ của ổ đĩa
+        - Lượng dữ liệu đang được ghi vào tệp
+    - Bộ đệm luôn được xả (flushed) khi tệp được đóng.
+    - Cũng có thể xả bộ đệm thủ công bằng cách gọi phương thức flush().
+    - Lưu ý: Bất kỳ luồng hoặc tiến trình nào khác đang đọc tệp sẽ không thể thấy nội dung đã lưu trong bộ đệm cho đến khi quá trình xả (flush) diễn ra.
+##### Quản lý Tệp và Thư Mục
+- Phần lớn những gì chúng ta muốn làm với tệp và thư mục là đổi tên, sao chép, di chuyển và xóa chúng. 
+- Thỉnh thoảng, chúng ta cũng có thể muốn tìm kiếm và thay thế toàn cục trong nội dung của một tệp hiện có.
+- Sử dụng Files.rename, .copy, .delete, .move
+
+##### RandomAccessFile
+- Có một cách khác để truy cập dữ liệu từ tệp, đó là sử dụng RandomAccessFile.
+    - Lớp này cung cấp khả năng truy cập và sửa đổi trực tiếp dữ liệu tại bất kỳ vị trí cụ thể nào trong tệp.
+    - Một RandomAccessFile hoạt động giống như một mảng byte lớn được lưu trữ trong hệ thống tệp. Nó có một con trỏ hoặc chỉ mục vào mảng ngầm định đó, gọi là file pointer.
+    - RandomAccessFile có thể đọc và ghi dữ liệu nhị phân, sử dụng các phương thức đặc biệt giúp theo dõi số byte được đọc hoặc ghi.
+    - Lớp này có thể được sử dụng cho cả thao tác đọc và ghi.
+- The RandomAccessFile File Pointer
+    - Khi bạn mở một RandomAccessFile, con trỏ tệp (file pointer) sẽ nằm ở vị trí 0, tức là đầu tệp.
+    - Để di chuyển con trỏ tệp, bạn gọi phương thức seek(long position) trên đối tượng tệp, với position là vị trí cụ thể (tính theo byte) trong tệp mà bạn muốn chuyển đến.
+    - Để lấy vị trí hiện tại của con trỏ, bạn sử dụng phương thức getFilePointer().
+    - Tùy vào loại phương thức đọc hoặc ghi mà bạn đang sử dụng, con trỏ tệp sẽ di chuyển một số byte tương ứng sau khi thao tác đó hoàn tất.
+- Vì sao sử dụng ? 
+    - Giả sử bạn có một tệp chứa hàng triệu bản ghi, nhưng tại một thời điểm, bạn chỉ cần truy cập khoảng 50 bản ghi trong số đó
+    - Thay vì phải tải hàng triệu bản ghi vào bộ nhớ, bạn có thể tải một mảng đơn giản hoặc một map nhỏ, dùng để xác định vị trí các bản ghi cần thiết trong tệp lớn.
+    - Bạn chắc chắn không muốn bắt đầu đọc từ đầu tệp, rồi đọc đến 10 triệu bản ghi, kiểm tra từng cái một để tìm bản ghi phù hợp.
+    - Lúc này, RandomAccessFile cho phép bạn tua nhanh hoặc tua lùi đến một vị trí cụ thể trong tệp, bằng cách sử dụng phương thức seek().
+    - Từ vị trí đó, bạn có thể chỉ đọc đúng phần dữ liệu cần thiết cho ứng dụng của mình.
+    - Tuy nhiên, để làm được điều này, bạn cần phải:
+        - Biết số lượng bản ghi trong tệp
+        - Biết độ dài mỗi bản ghi
+        - Xác định cách đánh dấu (định danh) từng bản ghi để có thể truy xuất chính xác.
+- Random Access File's index
+    - Một RandomAccessFile cần có một chỉ mục (index), chứa vị trí con trỏ tệp (file pointer) tương ứng với mỗi bản ghi quan tâm.
+    - Chỉ mục này có thể được suy ra một cách ngầm định, nếu tệp của bạn có các bản ghi có độ dài cố định, và bạn chỉ cần truy xuất dữ liệu theo số dòng.
+    - Điều này có nghĩa là bạn có thể dễ dàng tính toán bằng một phép toán đơn giản để truy cập bản ghi thứ 10.000, khi tất cả các bản ghi đều dài 250 ký tự.
+    - Ví dụ: 10.000 * 250 sẽ đưa bạn đến vị trí bắt đầu của bản ghi thứ 10.000 trong tệp của bạn.
+    - Tuy nhiên, trên thực tế, việc truy xuất bản ghi theo một ID không tuần tự (non-sequential ID) sẽ phổ biến hơn nhiều so với truy xuất theo số dòng (row ID).
+    - Để làm được điều này, bạn sẽ cần một chỉ mục (index) chứa ID của bản ghi và vị trí trong tệp tương ứng với bản ghi đó.
+    - Đối với các bản ghi có độ dài cố định, bạn không cần lưu trữ vị trí con trỏ tệp một cách rõ ràng — chỉ cần liên kết giữa row ID và record ID là đủ.
+    - Ví dụ, chỉ mục này có thể là một mảng các record ID, được xếp theo thứ tự row ID.
+    ![alt text](image-16.png)
+    - Đối với các bản ghi có độ dài biến đổi, chỉ riêng row ID là không đủ thông tin để tính toán vị trí con trỏ tệp (file pointer). Lựa chọn Lưu độ dài của từng bản ghi, hoặc Chỉ đơn giản lưu vị trí bắt đầu (file pointer) của mỗi bản ghi. Cách phổ biến hơn là lưu vị trí bắt đầu của bản ghi trong tệp.
+    ![alt text](image-17.png)
+- Trong trường hợp tệp có độ dài cố định, chỉ mục có thể không tồn tại. Nếu nó tồn tại, thì nó sẽ nằm cùng vị trí như chỉ mục cho tệp có độ dài biến đổi, có thể là:
+    - Ở đầu tệp dữ liệu, trước phần chứa các bản ghi
+    - Ở cuối tệp dữ liệu, sau tất cả các bản ghi
+    - Hoặc nằm trong một tệp riêng biệt hoàn toàn
+
+##### DataOutputStream,DataInputStream& Serialization
+- DataOutputStream cho phép một ứng dụng ghi các kiểu dữ liệu nguyên thủy của Java (primitive types) vào một luồng đầu ra (output stream) theo cách di động (portable). Sau đó, ứng dụng có thể sử dụng DataInputStream để đọc lại dữ liệu đã ghi.
+- Serialization: 
+    - Quá trình chuyển một cấu trúc dữ liệu hoặc đối tượng thành định dạng có thể lưu trữ vào tệp được gọi là serialization (tuần tự hóa).
+    - Chỉ những đối tượng của các lớp triển khai giao diện Serializable mới có thể được tuần tự hóa — tức là lớp phải implement giao diện Serializable.
+    - Giao diện này không có bất kỳ phương thức nào, nó chỉ dùng để đánh dấu (mark) rằng lớp đó có thể được tuần tự hóa.
+    - Tất cả các lớp con của một lớp Serializable cũng mặc nhiên là tuần tự hóa được.
+- Deserialization or Reconstituting an Object
+    - Cơ chế tuần tự hóa mặc định sẽ ghi lại lớp của đối tượng, chữ ký của lớp, và giá trị của các trường không tĩnh (non-static).
+    - Những thành phần này sẽ được sử dụng để khôi phục lại đối tượng và trạng thái của nó trong quá trình đọc dữ liệu.
+    - Quá trình này được gọi là phục hồi dữ liệu (reconstituting the data), hay còn gọi là giải tuần tự hóa (deserialization).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
