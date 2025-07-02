@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c432b33b-9cd8-4c13-b5d4-ff93b1b9e0a0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY/LEETCODE-EASY.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY/Q125_Valid_Palindrome/Q125_Valid_Palindrome.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/CollectionsMethod/CollectionsMethod.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/EnumCollections/EnumCollections.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/SetsAndMaps/SetsAndMaps.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/SortedMaps/SortedMaps.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamTerminal/StreamTerminal.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamingStudent/StreamingStudent.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/Streams/Streams.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamsIntermediate/StreamsIntermediate.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2zK4tKoyLnaiiL5qTCpLg4XGfUM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/gd4/buoi-3",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Java Study/java-backend-learning/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c432b33b-9cd8-4c13-b5d4-ff93b1b9e0a0" name="Changes" comment="" />
+      <created>1751466643252</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751466643252</updated>
+    </task>
+    <servers />
+  </component>
+</project>

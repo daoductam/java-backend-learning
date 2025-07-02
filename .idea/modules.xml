@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/CollectionsMethod/CollectionsMethod.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/CollectionsMethod/CollectionsMethod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/EnumCollections/EnumCollections.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/EnumCollections/EnumCollections.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY/LEETCODE-EASY.iml" filepath="$PROJECT_DIR$/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY/LEETCODE-EASY.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY/Q125_Valid_Palindrome/Q125_Valid_Palindrome.iml" filepath="$PROJECT_DIR$/giai-doan-1-kien-thuc-nen-tang/lesson-1-CTDLGT/LEETCODE-EASY/Q125_Valid_Palindrome/Q125_Valid_Palindrome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/SetsAndMaps/SetsAndMaps.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/SetsAndMaps/SetsAndMaps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/SortedMaps/SortedMaps.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/collections/SortedMaps/SortedMaps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamTerminal/StreamTerminal.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamTerminal/StreamTerminal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamingStudent/StreamingStudent.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamingStudent/StreamingStudent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/Streams/Streams.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/Streams/Streams.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamsIntermediate/StreamsIntermediate.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-1-Java-Core/streams/StreamsIntermediate/StreamsIntermediate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/java-backend-learning.iml" filepath="$PROJECT_DIR$/.idea/java-backend-learning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-3-Network-REST-API-Design/order/order/src/main/main.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-3-Network-REST-API-Design/order/order/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-3-Network-REST-API-Design/order/order/src/test/test.iml" filepath="$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-3-Network-REST-API-Design/order/order/src/test/test.iml" />
+    </modules>
+  </component>
+</project>
