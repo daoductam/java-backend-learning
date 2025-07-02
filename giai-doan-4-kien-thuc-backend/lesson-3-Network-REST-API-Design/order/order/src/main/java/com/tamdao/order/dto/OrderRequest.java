@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 public class OrderRequest {
@@ -22,5 +24,5 @@ public class OrderRequest {
 
     @NotNull(message = "Giá là bắt buộc")
     @DecimalMin(value = "0.0", inclusive = false, message = "Giá phải lớn hơn 0")
-    private Double price;
+    private BigDecimal price;
 }

@@ -7,10 +7,10 @@ import com.tamdao.order.exception.OrderNotFoundException;
 import com.tamdao.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import com.tamdao.order.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -21,41 +21,47 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderMapper orderMapper;
+
     @Override
-    public Order createOrder(OrderRequest request) {
+    public OrderResponse createOrder(OrderRequest request) {
         log.info("Tạo Order request={}", request);
         Order order = Order.builder()
                 .customerName(request.getCustomerName())
                 .productName(request.getProductName())
                 .quantity(request.getQuantity())
                 .price(request.getPrice())
-                .createdAt(Instant.now())
                 .build();
-        return orderRepository.save(order);
+        Order saved = orderRepository.save(order);
+        return orderMapper.toOrderResponse(saved);
     }
 
     @Override
-    public Order getOrderById(String id) {
+    public OrderResponse getOrderById(String id) {
         log.info("Get order id={}", id);
-        return orderRepository.findById(id)
+        Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new OrderNotFoundException("Không tìm thấy Order với id: " + id));
+        return orderMapper.toOrderResponse(order);
     }
 
     @Override
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    public List<OrderResponse> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
     }
 
     @Override
-    public Order updateOrder(String id, OrderRequest request) {
+    public void updateOrder(String id, OrderRequest request) {
         log.info("Cập nhật Order id={}",id);
-        Order order =  getOrderById(id);
-        order.setCustomerName(request.getCustomerName());
+        Order order = orderRepository.findById(id)
+                .orElseThrow(()-> new OrderNotFoundException("Không tìm thấy Order với id: " + id));        order.setCustomerName(request.getCustomerName());
         order.setProductName(request.getProductName());
         order.setQuantity(request.getQuantity());
         order.setPrice(request.getPrice());
-        order.setUpdatedAt(Instant.now());
-        return orderRepository.save(order);
+        orderRepository.save(order);
     }
 
     @Override

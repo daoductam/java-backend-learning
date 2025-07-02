@@ -1,7 +1,9 @@
 package com.tamdao.order.exception;
 
-public class OrderNotFoundException extends RuntimeException{
+import org.springframework.http.HttpStatus;
+
+public class OrderNotFoundException extends BaseException{
     public OrderNotFoundException(String message) {
-        super(message);
+        super("Khong tim thay don hang","ORDER_NOT_FOUND", HttpStatus.NOT_FOUND);
     }
 }

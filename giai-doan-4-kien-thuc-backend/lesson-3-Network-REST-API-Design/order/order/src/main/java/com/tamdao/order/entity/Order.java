@@ -5,25 +5,21 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.Instant;
-
-@Entity
+@EqualsAndHashCode(callSuper = true)
 @Data
+@Entity
+
 @Table(name = "orders")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+public class Order extends BaseEntity {
 
     @NotBlank(message = "Tên khách hàng không được để trống ")
     @Column(name = "customer_name", nullable = false)
@@ -39,12 +35,6 @@ public class Order {
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Giá phải lớn hơn 0")
     @Column(name = "price", nullable = false)
-    private Double price;
-
-    @CreationTimestamp
-    private Instant createdAt;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
+    private BigDecimal price;
 
 }

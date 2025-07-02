@@ -4,10 +4,16 @@ import com.tamdao.order.entity.Order;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
 @Builder
 public class OrderResponse {
-    private Order order;
+    private String id;
+    private String customerName;
+    private String productName;
+    private Integer quantity;
+    private BigDecimal price;
+    private Instant createdAt;
 }
