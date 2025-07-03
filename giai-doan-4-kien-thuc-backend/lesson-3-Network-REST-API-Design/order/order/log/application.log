@@ -1,0 +1,79 @@
+2025-07-03T01:15:45.128+07:00  INFO 15328 --- [order] [restartedMain] com.tamdao.order.OrderApplication        : Starting OrderApplication using Java 21.0.7 with PID 15328 (D:\Java Study\java-backend-learning\giai-doan-4-kien-thuc-backend\lesson-3-Network-REST-API-Design\order\order\build\classes\java\main started by tamda in D:\Java Study\java-backend-learning\giai-doan-4-kien-thuc-backend\lesson-3-Network-REST-API-Design\order\order)
+2025-07-03T01:15:45.139+07:00  INFO 15328 --- [order] [restartedMain] com.tamdao.order.OrderApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-07-03T01:15:45.220+07:00  INFO 15328 --- [order] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-03T01:15:45.221+07:00  INFO 15328 --- [order] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-03T01:15:46.579+07:00  INFO 15328 --- [order] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-03T01:15:46.655+07:00  INFO 15328 --- [order] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 1 JPA repository interface.
+2025-07-03T01:15:47.267+07:00  INFO 15328 --- [order] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-07-03T01:15:47.284+07:00  INFO 15328 --- [order] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-03T01:15:47.285+07:00  INFO 15328 --- [order] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-03T01:15:47.352+07:00  INFO 15328 --- [order] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-03T01:15:47.353+07:00  INFO 15328 --- [order] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2132 ms
+2025-07-03T01:15:47.544+07:00  INFO 15328 --- [order] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-03T01:15:47.597+07:00  INFO 15328 --- [order] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-03T01:15:47.636+07:00  INFO 15328 --- [order] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-03T01:15:47.983+07:00  INFO 15328 --- [order] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-03T01:15:48.020+07:00  INFO 15328 --- [order] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-03T01:15:48.242+07:00  INFO 15328 --- [order] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@794e952c
+2025-07-03T01:15:48.245+07:00  INFO 15328 --- [order] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-03T01:15:48.341+07:00  INFO 15328 --- [order] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.13
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-03T01:15:49.480+07:00  INFO 15328 --- [order] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-03T01:15:49.647+07:00  INFO 15328 --- [order] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-03T01:15:50.105+07:00  WARN 15328 --- [order] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-03T01:15:50.587+07:00  INFO 15328 --- [order] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-07-03T01:15:50.628+07:00  INFO 15328 --- [order] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-07-03T01:15:50.641+07:00  INFO 15328 --- [order] [restartedMain] com.tamdao.order.OrderApplication        : Started OrderApplication in 6.192 seconds (process running for 6.868)
+2025-07-03T01:16:04.474+07:00  INFO 15328 --- [order] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-03T01:16:04.476+07:00  INFO 15328 --- [order] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-03T01:16:04.479+07:00  INFO 15328 --- [order] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-07-03T01:16:05.237+07:00  WARN 15328 --- [order] [http-nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [jakarta.servlet.ServletException: Handler dispatch failed: java.lang.NoSuchMethodError: 'void org.springframework.web.method.ControllerAdviceBean.<init>(java.lang.Object)']
+2025-07-03T01:16:13.795+07:00  WARN 15328 --- [order] [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource swagger-ui.]
+2025-07-03T01:16:13.879+07:00  WARN 15328 --- [order] [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2025-07-03T01:16:37.382+07:00  WARN 15328 --- [order] [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource swagger-ui.]
+2025-07-03T01:16:37.442+07:00  WARN 15328 --- [order] [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2025-07-03T01:16:38.460+07:00  WARN 15328 --- [order] [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource swagger-ui.]
+2025-07-03T01:16:38.515+07:00  WARN 15328 --- [order] [http-nio-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2025-07-03T01:18:10.892+07:00  WARN 15328 --- [order] [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [jakarta.servlet.ServletException: Handler dispatch failed: java.lang.NoSuchMethodError: 'void org.springframework.web.method.ControllerAdviceBean.<init>(java.lang.Object)']
+2025-07-03T01:19:04.943+07:00  INFO 21428 --- [order] [restartedMain] com.tamdao.order.OrderApplication        : Starting OrderApplication using Java 21.0.7 with PID 21428 (D:\Java Study\java-backend-learning\giai-doan-4-kien-thuc-backend\lesson-3-Network-REST-API-Design\order\order\build\classes\java\main started by tamda in D:\Java Study\java-backend-learning\giai-doan-4-kien-thuc-backend\lesson-3-Network-REST-API-Design\order\order)
+2025-07-03T01:19:04.947+07:00  INFO 21428 --- [order] [restartedMain] com.tamdao.order.OrderApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-07-03T01:19:05.036+07:00  INFO 21428 --- [order] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-03T01:19:05.037+07:00  INFO 21428 --- [order] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-03T01:19:06.239+07:00  INFO 21428 --- [order] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-03T01:19:06.350+07:00  INFO 21428 --- [order] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 96 ms. Found 1 JPA repository interface.
+2025-07-03T01:19:07.141+07:00  INFO 21428 --- [order] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-07-03T01:19:07.161+07:00  INFO 21428 --- [order] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-03T01:19:07.162+07:00  INFO 21428 --- [order] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-03T01:19:07.269+07:00  INFO 21428 --- [order] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-03T01:19:07.270+07:00  INFO 21428 --- [order] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2231 ms
+2025-07-03T01:19:07.496+07:00  INFO 21428 --- [order] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-03T01:19:07.563+07:00  INFO 21428 --- [order] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-03T01:19:07.611+07:00  INFO 21428 --- [order] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-03T01:19:08.030+07:00  INFO 21428 --- [order] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-03T01:19:08.070+07:00  INFO 21428 --- [order] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-03T01:19:08.298+07:00  INFO 21428 --- [order] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@746e5f92
+2025-07-03T01:19:08.300+07:00  INFO 21428 --- [order] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-03T01:19:08.397+07:00  INFO 21428 --- [order] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.13
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-03T01:19:09.727+07:00  INFO 21428 --- [order] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-03T01:19:09.800+07:00  INFO 21428 --- [order] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-03T01:19:10.274+07:00  WARN 21428 --- [order] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-03T01:19:10.860+07:00  INFO 21428 --- [order] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-07-03T01:19:10.906+07:00  INFO 21428 --- [order] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-07-03T01:19:10.920+07:00  INFO 21428 --- [order] [restartedMain] com.tamdao.order.OrderApplication        : Started OrderApplication in 6.667 seconds (process running for 7.337)
+2025-07-03T01:19:16.021+07:00  INFO 21428 --- [order] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-03T01:19:16.023+07:00  INFO 21428 --- [order] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-03T01:19:16.025+07:00  INFO 21428 --- [order] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-07-03T01:19:16.977+07:00  INFO 21428 --- [order] [http-nio-8080-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 442 ms

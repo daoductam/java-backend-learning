@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gradle-wrapper">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/giai-doan-4-kien-thuc-backend/lesson-3-Network-REST-API-Design/order/order/gradle/wrapper/gradle-wrapper.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
