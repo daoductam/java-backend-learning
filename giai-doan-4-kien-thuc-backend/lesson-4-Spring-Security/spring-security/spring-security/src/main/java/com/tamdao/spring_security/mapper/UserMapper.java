@@ -1,8 +1,8 @@
 package com.tamdao.spring_security.mapper;
 
-import com.tamdao.spring_security.dto.UserCreationRequest;
-import com.tamdao.spring_security.dto.UserResponse;
-import com.tamdao.spring_security.dto.UserUpdateRequest;
+import com.tamdao.spring_security.dto.request.UserCreationRequest;
+import com.tamdao.spring_security.dto.response.UserResponse;
+import com.tamdao.spring_security.dto.request.UserUpdateRequest;
 import com.tamdao.spring_security.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

@@ -1,9 +1,15 @@
 package com.tamdao.spring_security.service;
 
-import com.tamdao.spring_security.dto.AuthenticationRequest;
-import org.springframework.stereotype.Service;
+import com.nimbusds.jose.JOSEException;
+import com.tamdao.spring_security.dto.request.AuthenticationRequest;
+import com.tamdao.spring_security.dto.request.IntrospectRequest;
+import com.tamdao.spring_security.dto.response.AuthenticationResponse;
+import com.tamdao.spring_security.dto.response.IntrospectResponse;
+
+import java.text.ParseException;
 
 
 public interface AuthenticationService {
-    boolean authenticate(AuthenticationRequest request);
+    AuthenticationResponse authenticate(AuthenticationRequest request);
+    IntrospectResponse introspect(IntrospectRequest response) throws JOSEException, ParseException;
 }

@@ -1,9 +1,7 @@
-package com.tamdao.spring_security.dto;
+package com.tamdao.spring_security.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder

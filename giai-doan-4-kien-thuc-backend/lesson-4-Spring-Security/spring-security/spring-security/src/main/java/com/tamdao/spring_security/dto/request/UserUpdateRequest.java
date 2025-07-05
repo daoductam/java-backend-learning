@@ -1,4 +1,4 @@
-package com.tamdao.spring_security.dto;
+package com.tamdao.spring_security.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

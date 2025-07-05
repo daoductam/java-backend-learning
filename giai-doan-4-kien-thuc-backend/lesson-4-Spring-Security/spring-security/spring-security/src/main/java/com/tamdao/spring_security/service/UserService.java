@@ -1,10 +1,8 @@
 package com.tamdao.spring_security.service;
 
-import com.tamdao.spring_security.dto.UserCreationRequest;
-import com.tamdao.spring_security.dto.UserResponse;
-import com.tamdao.spring_security.dto.UserUpdateRequest;
-import com.tamdao.spring_security.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import com.tamdao.spring_security.dto.request.UserCreationRequest;
+import com.tamdao.spring_security.dto.response.UserResponse;
+import com.tamdao.spring_security.dto.request.UserUpdateRequest;
 
 import java.util.List;
 

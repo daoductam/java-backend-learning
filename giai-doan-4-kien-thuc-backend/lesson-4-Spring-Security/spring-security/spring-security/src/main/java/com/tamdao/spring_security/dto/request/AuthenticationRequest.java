@@ -1,4 +1,4 @@
-package com.tamdao.spring_security.dto;
+package com.tamdao.spring_security.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
-    boolean authenticated;
+public class AuthenticationRequest {
+    String username;
+    String password;
 }
