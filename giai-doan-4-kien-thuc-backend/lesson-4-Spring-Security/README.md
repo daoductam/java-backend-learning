@@ -67,6 +67,34 @@
 - JwtTokenProvider là một lớp được tạo ra để giúp tạo và kiểm tra JWT.
 #### Cấu hình và Phân quyền với Spring Security
 #### Xây dựng Controller
+### Thực hành
+#### authentication flow
+![alt text](aaaa.png)
+- 1. Actor → Gửi request
+Người dùng (actor) gửi request HTTP đến server, ví dụ POST /login.
+- 2. Security Filter Chains
+Request được lọc qua Security Filter Chain. Đây là nơi các Filter như UsernamePasswordAuthenticationFilter hoạt động.
+- 3. UsernamePasswordAuthenticationToken
+UsernamePasswordAuthenticationFilter tạo ra object UsernamePasswordAuthenticationToken chứa username/password do user nhập vào.
+- 4. Gửi token đến AuthenticationManager
+Token được gửi đến AuthenticationManager (thường là ProviderManager) để xử lý xác thực.
+- 5. AuthenticationManager → AuthenticationProvider
+AuthenticationManager chuyển token đến một hoặc nhiều AuthenticationProvider. Đây là nơi bạn cài logic xác thực (VD: xác thực từ DB, OAuth...).
+- 6. Provider dùng PasswordEncoder
+AuthenticationProvider sẽ dùng PasswordEncoder (ví dụ: BCryptPasswordEncoder) để kiểm tra password người dùng nhập có khớp với DB không.
+
+- 7. Provider gọi UserDetailsService
+AuthenticationProvider gọi UserDetailsService.loadUserByUsername() để lấy thông tin user từ DB.
+- 8. Lấy thông tin từ User
+UserDetailsService truy vấn DB hoặc service khác để lấy UserDetails (chứa username, password mã hóa, roles…).
+- 9. Trả lại UserDetails
+UserDetailsService trả lại UserDetails cho AuthenticationProvider.
+- 10. Provider xác thực thành công
+So sánh password, nếu đúng → trả về Authentication object (đã được xác thực) cho AuthenticationManager.
+- 11. AuthenticationManager trả kết quả
+AuthenticationManager gửi kết quả xác thực thành công trở lại cho Security Filter Chain.
+- 12. Lưu vào SecurityContextHolder
+Cuối cùng, Authentication Filter sẽ lưu Authentication vào SecurityContextHolder. Từ đây, bạn có thể gọi SecurityContextHolder.getContext().getAuthentication() để biết người dùng hiện tại là ai.
 
 
 

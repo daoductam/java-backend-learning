@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,10 +22,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     // Mảng các API không cần đăng nhập (permitAll())
     private final String[] PUBLIC_ENDPOINTS={"/users",
-            "/auth/token", "/auth/introspect"};
+            "/auth/login", "/auth/introspect"};
 
     // Lấy key để decode JWT từ file application.properties
     @Value("${jwt.signerKey}")
@@ -34,7 +36,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         /*
-        POST /users, /auth/token, /auth/introspect → ai cũng truy cập được.
+        POST /users, /auth/login, /auth/introspect → ai cũng truy cập được.
         GET /users → yêu cầu role là ADMIN.
          */
         httpSecurity.authorizeHttpRequests(request ->
@@ -51,7 +53,8 @@ public class SecurityConfig {
                 oauth2.jwt(jwtConfigurer ->
                         jwtConfigurer.decoder(jwtDecoder()) // dùng secret để verify JWT
                                 // Dùng JwtAuthenticationConverter để trích role từ claim "scope"
-                                .jwtAuthenticationConverter(jwtAuthenticationConverter())));
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
 
         // Tắt CSRF nếu không dùng form HTML (REST API không cần CSRF).
         httpSecurity.csrf(AbstractHttpConfigurer::disable);

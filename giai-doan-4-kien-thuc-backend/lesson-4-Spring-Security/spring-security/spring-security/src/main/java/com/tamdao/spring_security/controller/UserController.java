@@ -52,6 +52,17 @@ public class UserController {
         ) ;
     }
 
+    @GetMapping("/myInfo")
+    ResponseEntity<BaseResponse<UserResponse>> getMyInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                BaseResponse.<UserResponse>builder()
+                        .code(HttpStatus.OK.value())
+                        .message("Lấy User thành công")
+                        .data(userService.getMyInfo())
+                        .build()
+        ) ;
+    }
+
     @PostMapping
     ResponseEntity<BaseResponse<UserResponse>>  createUser(@RequestBody @Valid UserCreationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
