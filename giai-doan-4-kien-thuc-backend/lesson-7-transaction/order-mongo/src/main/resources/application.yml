@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/orderdb_mongo
+  jackson:
+    serialization:
+      indent_output: true
+
+server:
+  port: 8080

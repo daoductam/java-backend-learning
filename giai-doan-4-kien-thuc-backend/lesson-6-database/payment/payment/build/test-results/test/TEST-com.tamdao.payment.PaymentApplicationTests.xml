@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tamdao.payment.PaymentApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-07-11T14:47:04.434Z" hostname="TAMDAO" time="1.137">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.tamdao.payment.PaymentApplicationTests" time="1.137"/>
+  <system-out><![CDATA[21:46:41.001 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.tamdao.payment.PaymentApplicationTests]: PaymentApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:46:41.287 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.tamdao.payment.PaymentApplication for test class com.tamdao.payment.PaymentApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.3)
+
+2025-07-11T21:46:42.942+07:00  INFO 752 --- [payment ] [    Test worker] c.t.payment.PaymentApplicationTests      : Starting PaymentApplicationTests using Java 21.0.7 with PID 752 (started by tamda in D:\Java Study\java-backend-learning\giai-doan-4-kien-thuc-backend\lesson-6-database\payment\payment)
+2025-07-11T21:46:42.957+07:00  INFO 752 --- [payment ] [    Test worker] c.t.payment.PaymentApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2025-07-11T21:46:46.205+07:00  INFO 752 --- [payment ] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-11T21:46:46.212+07:00  INFO 752 --- [payment ] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-11T21:46:46.762+07:00  INFO 752 --- [payment ] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 525 ms. Found 2 JPA repository interfaces.
+2025-07-11T21:46:46.814+07:00  INFO 752 --- [payment ] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-11T21:46:46.818+07:00  INFO 752 --- [payment ] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-11T21:46:46.875+07:00  INFO 752 --- [payment ] [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.tamdao.payment.repository.TransactionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11T21:46:46.877+07:00  INFO 752 --- [payment ] [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.tamdao.payment.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11T21:46:46.877+07:00  INFO 752 --- [payment ] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
+2025-07-11T21:46:49.368+07:00  INFO 752 --- [payment ] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-11T21:46:49.537+07:00  INFO 752 --- [payment ] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-11T21:46:49.656+07:00  INFO 752 --- [payment ] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-11T21:46:50.599+07:00  INFO 752 --- [payment ] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-11T21:46:50.721+07:00  INFO 752 --- [payment ] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-11T21:46:52.222+07:00  INFO 752 --- [payment ] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ac83e67
+2025-07-11T21:46:52.222+07:00  INFO 752 --- [payment ] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-11T21:46:52.522+07:00  INFO 752 --- [payment ] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-11T21:46:55.606+07:00  INFO 752 --- [payment ] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-11T21:46:55.770+07:00  INFO 752 --- [payment ] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-11T21:46:59.915+07:00  WARN 752 --- [payment ] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-11T21:47:03.804+07:00  INFO 752 --- [payment ] [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2025-07-11T21:47:04.160+07:00  INFO 752 --- [payment ] [    Test worker] c.t.payment.PaymentApplicationTests      : Started PaymentApplicationTests in 22.344 seconds (process running for 26.153)
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\tamda\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.17.6\17b32fd9f57deef02842f7f05abc4ad8127fe34e\byte-buddy-agent-1.17.6.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>
