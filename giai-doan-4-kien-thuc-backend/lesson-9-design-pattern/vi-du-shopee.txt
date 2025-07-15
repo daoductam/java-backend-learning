@@ -1,0 +1,32 @@
+Ví dụ cụ thể với Shopee
+1. Creational Pattern
+- Singleton:
+    - Mục đích: chỉ tạo 1 instance duy nhất cho toàn hệ thống.
+    - Ví dụ: Kết nối DB, EmailSender, RedisClient.
+- Factory:
+    - Mục đích: ẩn đi logic khởi tạo cụ thể, dễ mở rộng.
+    - Ví dụ: Cổng thanh toán trong Shopee (ShopeePay, Momo, ZaloPay...)
+- Builder:
+    - Mục đích: tạo object có nhiều thuộc tính dễ dàng.
+    - Ví dụ: Tạo đơn hàng với nhiều thông tin (user, items, address, discount...)
+2. Structural Pattern
+- Proxy:
+    - Mục đích: kiểm soát truy cập, thêm logic trước/sau khi gọi thật.
+    - Ví dụ: Gửi request tới Payment Service, nhưng cần log + retry nếu fail.
+- Adapter:
+    - Mục đích: chuyển đổi interface của 1 class cũ thành interface mới.
+    - Ví dụ: Cổng thanh toán mới có API khác format, cần chuyển đổi trước khi tích hợp.
+
+3. Behavioral Pattern
+- Strategy:
+    - Mục đích: thay đổi thuật toán khi runtime.
+    - Ví dụ: Tùy theo user chọn ShopeePay, Momo, ZaloPay, gọi strategy tương ứng.
+- Observer:
+    - Mục đích: 1 sự kiện xảy ra, nhiều thành phần sẽ phản ứng.
+    - Ví dụ: Khi đơn hàng được tạo, hệ thống Gửi email, Gửi noti.....
+- Template Method:
+    - Mục đích: định nghĩa skeleton xử lý, từng bước cụ thể sẽ override.
+    - Ví dụ: Quy trình xử lý thanh toán bao gồm các bước: check stock → trừ tiền → gửi email. 
+        Mỗi phương thức thanh toán có thể override từng bước.
+
+
