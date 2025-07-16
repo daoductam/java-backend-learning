@@ -3,30 +3,166 @@ Ví dụ cụ thể với Shopee
 - Singleton:
     - Mục đích: chỉ tạo 1 instance duy nhất cho toàn hệ thống.
     - Ví dụ: Kết nối DB, EmailSender, RedisClient.
+    - Spring hỗ trợ sẵn: Các @Service, @Component, @Repository mặc định đều là Singleton.
+    @Service
+    public class EmailSender {
+        public void send(String to, String subject, String body) {
+            // Gửi email...
+        }
+    }
+    EmailSender chỉ có 1 instance xuyên suốt toàn bộ hệ thống nhờ Spring.
+
 - Factory:
-    - Mục đích: ẩn đi logic khởi tạo cụ thể, dễ mở rộng.
+    - Mục đích: Ẩn đi việc khởi tạo object, giúp code linh hoạt khi thêm loại mới.
     - Ví dụ: Cổng thanh toán trong Shopee (ShopeePay, Momo, ZaloPay...)
+    public interface PaymentGateway {
+        void pay(Order order);
+    }
+
+    public class MomoGateway implements PaymentGateway { ... }
+    public class ZaloPayGateway implements PaymentGateway { ... }
+
+    public class PaymentGatewayFactory {
+        public PaymentGateway getGateway(String type) {
+            return switch (type) {
+                case "MOMO" -> new MomoGateway();
+                case "ZALO" -> new ZaloPayGateway();
+                default -> throw new IllegalArgumentException("Unknown");
+            };
+        }
+    }
+
 - Builder:
-    - Mục đích: tạo object có nhiều thuộc tính dễ dàng.
+    - Mục đích: Tạo object có nhiều thuộc tính một cách rõ ràng, dễ đọc, tránh constructor dài ngoằng.
     - Ví dụ: Tạo đơn hàng với nhiều thông tin (user, items, address, discount...)
+    public class Order {
+        private User user;
+        private List<Item> items;
+        private Address shippingAddress;
+        private String discountCode;
+
+        public static class Builder {
+            private Order order = new Order();
+            public Builder user(User user) { order.user = user; return this; }
+            public Builder items(List<Item> items) { order.items = items; return this; }
+            public Builder address(Address address) { order.shippingAddress = address; return this; }
+            public Builder discount(String code) { order.discountCode = code; return this; }
+            public Order build() { return order; }
+        }
+    }
+    Order order = new Order.Builder()
+        .user(currentUser)
+        .items(cart.getItems())
+        .address(shippingAddress)
+        .discount("FREESHIP")
+        .build();
+    - Có thể cài @Builder của lombok
+
 2. Structural Pattern
 - Proxy:
-    - Mục đích: kiểm soát truy cập, thêm logic trước/sau khi gọi thật.
+    - Mục đích: Thêm chức năng như logging, retry, cache mà không thay đổi code gốc.
     - Ví dụ: Gửi request tới Payment Service, nhưng cần log + retry nếu fail.
+    public interface PaymentService {
+        void process(Order order);
+    }
+
+    public class RealPaymentService implements PaymentService {
+        public void process(Order order) {
+            // Gọi API thực tế
+        }
+    }
+
+    public class PaymentServiceProxy implements PaymentService {
+        private final RealPaymentService real = new RealPaymentService();
+        public void process(Order order) {
+            System.out.println("Logging before payment...");
+            try {
+                real.process(order);
+            } catch (Exception e) {
+                System.out.println("Retrying...");
+                real.process(order);
+            }
+        }
+    }
+
 - Adapter:
     - Mục đích: chuyển đổi interface của 1 class cũ thành interface mới.
     - Ví dụ: Cổng thanh toán mới có API khác format, cần chuyển đổi trước khi tích hợp.
+    public class NewPayAPI {
+        public void doPayment(NewPayRequest req) { ... }
+    }
+
+    public class ShopeePaymentRequest {
+        public String userId;
+        public int amount;
+    }
+
+    public class NewPayAdapter implements PaymentGateway {
+        private NewPayAPI api = new NewPayAPI();
+        public void pay(Order order) {
+            NewPayRequest req = convert(order);
+            api.doPayment(req);
+        }
+    }
 
 3. Behavioral Pattern
 - Strategy:
-    - Mục đích: thay đổi thuật toán khi runtime.
+    - Mục đích: Tùy biến hành vi/thuật toán lúc runtime.
     - Ví dụ: Tùy theo user chọn ShopeePay, Momo, ZaloPay, gọi strategy tương ứng.
+    public interface DiscountStrategy {
+        double apply(double total);
+    }
+
+    public class NewUserDiscount implements DiscountStrategy { ... }
+    public class FlashSaleDiscount implements DiscountStrategy { ... }
+
+    public class CheckoutService {
+        public double checkout(double total, DiscountStrategy strategy) {
+            return strategy.apply(total);
+        }
+    }
+
 - Observer:
-    - Mục đích: 1 sự kiện xảy ra, nhiều thành phần sẽ phản ứng.
+    - Mục đích: Khi sự kiện xảy ra → nhiều thành phần được thông báo.
     - Ví dụ: Khi đơn hàng được tạo, hệ thống Gửi email, Gửi noti.....
+    @Component
+    public class OrderCreatedPublisher {
+        @Autowired private ApplicationEventPublisher publisher;
+        public void publish(Order order) {
+            publisher.publishEvent(new OrderCreatedEvent(order));
+        }
+    }
+
+    @Component
+    public class EmailListener {
+        @EventListener
+        public void onOrderCreated(OrderCreatedEvent event) {
+            emailSender.send(event.getOrder());
+        }
+    }
+
 - Template Method:
     - Mục đích: định nghĩa skeleton xử lý, từng bước cụ thể sẽ override.
     - Ví dụ: Quy trình xử lý thanh toán bao gồm các bước: check stock → trừ tiền → gửi email. 
         Mỗi phương thức thanh toán có thể override từng bước.
+    public abstract class PaymentProcessor {
+        public final void process(Order order) {
+            checkStock(order);
+            deductMoney(order);
+            sendConfirmation(order);
+        }
+
+        protected abstract void checkStock(Order order);
+        protected abstract void deductMoney(Order order);
+        protected void sendConfirmation(Order order) {
+            // Gửi email mặc định
+        }
+    }
+
+    public class ShopeePayProcessor extends PaymentProcessor {
+        protected void checkStock(Order order) { ... }
+        protected void deductMoney(Order order) { ... }
+    }
+
 
 
