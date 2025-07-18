@@ -6,19 +6,21 @@
 | **Monolithic**       | App chạy chung 1 project, 1 DB, 1 codebase     |
 | **Microservice**     | Tách app thành nhiều service độc lập           |
 | **Modular Monolith** | Monolith nhưng tách module rõ ràng theo domain |
-| **Low coupling**     | Module không phụ thuộc nhau quá mức            |
-| **High cohesion**    | Mỗi module làm 1 nhiệm vụ rõ ràng              |
 ### Monolithic Architecture (Mô hình tập trung)
 - Monolithic architecture là mô hình truyền thống: toàn bộ ứng dụng là một khối thống nhất, độc lập với ứng dụng khác. 
 #### Ưu
 - Triển khai dễ dàng – một tệp thực thi hoặc thư mục duy nhất.
 - Phát triển đơn giản – một codebase duy nhất.
-- Hiệu suất tốt – chỉ cần một API xử lý, thay vì nhiều API như microservices.
+- Hiệu suất tốt – Monolithic thường sử dụng gọi hàm nội bộ nên nhanh hơn kiểu microservices (không cần qua mạng).
 - Kiểm thử dễ dàng – toàn bộ ứng dụng là một khối thống nhất.
 - Debug dễ – mã nằm ở một nơi, dễ lần dấu lỗi.
 #### Nhược
-- Chậm phát triển khi hệ thống lớn lên.
+- Chậm phát triển khi hệ thống lớn lên do nhiều người cùng sửa một codebase 
+→ Dễ sinh xung đột git, khó review.
+    - Dù chỉ sửa 1 dòng code, bạn vẫn phải build lại toàn bộ app → lâu.
+    - Vì mọi thứ nằm chung một app → khó giao hẳn 1 phần cho team tự vận hành.
 - Khó mở rộng từng phần riêng lẻ.
+    - Các module gọi lẫn nhau trực tiếp, nếu không thiết kế tốt → thay đổi một chỗ kéo theo nhiều chỗ.
 - Dễ sụp đổ toàn hệ thống nếu một phần bị lỗi.
 - Khó thay đổi công nghệ, mọi thay đổi ảnh hưởng toàn ứng dụng.
 - Không linh hoạt, phụ thuộc công nghệ đã sử dụng.
