@@ -1,0 +1,29 @@
+@Override
+    // SQL Injection
+    public boolean loginInsecure(String username, String password) {
+        String sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
+        Query query = entityManager.createNativeQuery(sql, User.class);
+        User user = null;
+        try {
+            user = (User) query.getSingleResult();
+        } catch (Exception e) {
+            log.warn("Login failed: {}", e.getMessage());
+        }
+        log.info("user la: {}", user);
+        return user != null;
+    }
+
+{
+  "username": "admin' --",
+  "password": "anything"
+}
+
+- Vì dòng SQL tạo ra sẽ là: 
+    SELECT * FROM users WHERE username = 'admin' --' AND password = 'anything'
+- Dòng sau -- bị comment → chỉ còn:
+    SELECT * FROM users WHERE username = 'admin'
+-> dang nhap thanh cong 
+- Cách phòng tránh
+    - Luôn dùng ? hoặc :param trong @Query hoặc EntityManager
+    - Tuyệt đối không nối chuỗi SQL bằng tay với input người dùng
+    - Luôn dùng Spring Security + encoding + validation đầu vào
