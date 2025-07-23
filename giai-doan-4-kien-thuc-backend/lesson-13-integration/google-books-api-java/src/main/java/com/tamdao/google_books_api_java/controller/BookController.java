@@ -1,6 +1,7 @@
 package com.tamdao.google_books_api_java.controller;
 
 import com.tamdao.google_books_api_java.dto.BookResponse;
+import com.tamdao.google_books_api_java.dto.BookVolumeInfo;
 import com.tamdao.google_books_api_java.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class BookController {
     public BookService bookService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<BookResponse>> searchBooks(@RequestParam String q) {
-        List<BookResponse> books = bookService.searchBooks(q);
+    public ResponseEntity<List<BookResponse>> searchBooks(@RequestParam String keyword) {
+        List<BookResponse> books = bookService.searchBooks(keyword);
         return ResponseEntity.ok(books);
     }
 }
