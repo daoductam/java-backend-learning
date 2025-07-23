@@ -26,11 +26,6 @@ chi phí phát triển và maintain
     - Ví dụ: 1 hệ thống cần test giao diện cần click vào button, nhập form và submit form và xác nhận lại kết quả
 - Acceptance Testing
     - được test bởi khách hàng hoặc người dùng để xem đáp ứng y/c chức năng hay chưa
-## Test Driven Development
-- TDD là một cách phát triển phần mềm hướng đến việc viết unit testcases trước
-khi viết code.
--  TDD bao gồm việc lặp lại các quá trình viết unit test, cài đặt và refactor code
-![alt text](image.png)
 ## Load & Stress Test
 - Load Test và Stress Test đều là non-functional testing được sử dụng để đánh
 giá performance của hệ thống dưới một kịch bản cụ thể trong thực tế.
@@ -44,43 +39,16 @@ leaks
     - Test bằng cách tăng dần lưu lượng trên mức bình thường cho đến khi hệ thống “sập”
     - Hoặc tăng lưu lượng một cách đột ngột để xem hệ thống phản ứng như thế nào
     - Kết quả của Stress Test có thể giúp developer quản lý hậu quả tốt hơn sự cố xảy ra
-## Chaos Engineering
-- Trong hệ thống phân tán, sẽ khó khăn hơn trong việc dự đoán lỗi có thể xảy ra ở đâu
-- Những điều lầm tưởng về hệ thống phân tán:
-    - Network là ổn định
-    - Latency là 0
-    - Bandwith vô hạn
-    - Network được bảo mật
-    - Topology không thay đổi
-    - Chỉ có một quản trị viên (administrator)
-    - Chi phí vận chuyển là 0
-    - Network là đồng nhất
-- Những đặc tính này giúp thiết kế thử nghiệm Chaos Engineering, như là “packet-loss” hay “latency-attacks”Chaos Engineering
-- Chaos Engineering là quy tắc thử nghiệm trên một hệ thống nhằm xây dựng
-niềm tin vào khả năng của hệ thống trong việc chống chọi với các điều kiện
-hỗn loạn trong môi trường production
-- Bạn áp dụng phương pháp khoa học, tạo ra giả thuyết. Giả thuyết này dựa
-trên cách bạn đã thiết kế ứng dụng của mình để có khả năng phục hồi trước
-các sự kiện cụ thể như lỗi hoặc sự cố tải
-¨ Sau đó, bạn chạy một thử nghiệm bằng cách mô phỏng các sự kiện đó và
-quan sát cách ứng dụng của bạn hoạt động, kiểm tra giả thuyết
-- Những công ty sử dụng Chaos Engineering:
-    - Netflix (tạo ra tool Chaos Monkey sử dụng cho Chaos Engineering)
-    - Facebook
-    - Google
-    - Amazon ...Chaos Engineering
-- Chaos Monkey:
-    - được phát triển bởi Netflix
-    - dùng để tắt ngẫu nhiên một số instances trên productions để đảm bảo hệ thống có khả năng chịu lỗi
-- Gremlin:
-    - hỗ trợ tạo ra các sự cố thường xảy ra, như:
-    -  Resource: chiếm CPU, disk, IO, memory
-    - State: kill proccess, shutdown, thay đổi thời gian hệ thống
-    - Network: block DNS, add thêm latency, gây ra package-loss
-    - ...
 
 ## Chi Tiết Cách làm
 ### Unit Test
+#### 0. Mô tả
+- Mục tiêu: Kiểm tra logic từng đơn vị nhỏ nhất trong hệ thống (thường là một hàm hoặc một class).
+- Đặc điểm:
+  - Không phụ thuộc vào bên ngoài (database, API, hệ thống file...).
+  - Dùng các kỹ thuật mocking/stubbing.
+- Dùng khi nào: Test logic tính toán, validate input, xử lý nghiệp vụ cục bộ.
+- Công cụ: JUnit, Mockito, NUnit, xUnit, etc.
 #### 1. Cấu trúc một Unit Test cơ bản
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -159,6 +127,13 @@ void testAdd(int a, int b, int expected) {
 | Tên method | `shouldReturnOrder_whenValidInput()` (có dạng `should...when...`) |
 
 ### API First test
+#### 0. Mô tả
+- Mục tiêu: Kiểm tra rằng API tuân theo định nghĩa đã mô tả trong contract (OpenAPI/Swagger).
+- Đặc điểm:
+  - Giao tiếp rõ ràng giữa frontend/backend.
+  - Phát hiện sớm lỗi về thay đổi field, format, missing params...
+- Dùng khi nào: Phát triển theo mô hình API-first (định nghĩa trước API rồi mới code).
+- Công cụ: Postman, Swagger Validator, Pact, Dredd, Spring Cloud Contract.
 #### 1. Định nghĩa API bằng OpenAPI (Swagger)
 - Bạn mô tả API trước khi phát triển, ví dụ: openapi.yaml
 openapi: 3.0.0
@@ -217,6 +192,14 @@ public class OrderApiTest {
 }
 
 ### E2E Test
+#### Mô tả
+- Mục tiêu: Kiểm tra toàn bộ luồng của hệ thống từ frontend → backend → database → 3rd services.
+- Đặc điểm:
+  - Giống cách người dùng tương tác thật sự.
+  - Tốn thời gian, dễ flakey (bị lỗi vì phụ thuộc nhiều).
+- Dùng khi nào: Trước release, để đảm bảo hệ thống vận hành đúng.
+- Công cụ: Selenium, Cypress, Playwright, Robot Framework, etc.
+
 #### Ví dụ cụ thể: Sử dụng RestAssured để test E2E một API bằng Java
 - Setup:
 <!-- pom.xml -->
@@ -298,6 +281,13 @@ pm.test("Token exists", function () {
 });
 
 ### Load Test
+#### Mô tả
+- Mục tiêu: Kiểm tra hiệu năng, khả năng chịu tải, phản hồi của hệ thống dưới áp lực lớn.
+- Đặc điểm:
+  - Kiểm tra số lượng request/s, độ trễ, CPU/memory usage...
+  - Giúp xác định bottlenecks (nút cổ chai).
+- Dùng khi nào: Trước khi đưa vào production hoặc khi hệ thống có lượng truy cập cao.
+- Công cụ: JMeter, Gatling, k6, Locust, Artillery.
 #### 1. Cài đặt K6
 brew install k6           # macOS
 choco install k6          # Windows
@@ -379,6 +369,13 @@ k6 run -e BASE_URL=https://your-api.com loadtest.js
 - Trong code: const BASE_URL = __ENV.BASE_URL;
 
 ###  Integration Test
+#### Mô tả
+- Mục tiêu: Kiểm tra việc tích hợp giữa các module/hệ thống với nhau.
+- Đặc điểm:
+  - Có sử dụng database, API, hoặc service thực tế.
+  - Phát hiện lỗi do khác biệt cấu hình, kết nối, transaction...
+- Dùng khi nào: Kiểm tra controller + service + repository + DB cùng hoạt động đúng.
+- Công cụ: Spring Boot @SpringBootTest, Testcontainers, DBUnit, etc.
 #### Annotation thường dùng
 | Annotation                | Ý nghĩa                                               |
 | ------------------------- | ----------------------------------------------------- |
