@@ -1,0 +1,53 @@
+
+1. Stakeholders
+- Product Manager: Xác định yêu cầu sản phẩm, ưu tiên và phê duyệt backlog.
+- Business Analyst: Phân tích nghiệp vụ, đặc tả yêu cầu và luồng nghiệp vụ.
+- Backend Developer: Thiết kế và phát triển API.
+- Frontend Developer : Tích hợp UI, xử lý sự kiện và phản hồi người dùng.
+- UX/UI Designer: Thiết kế nút "Add to Cart", cart icon, cart view.
+- QA Engineer: Viết test case và kiểm thử tính năng.
+- Technical Lead/Architect: Duyệt thiết kế hệ thống và định hướng kiến trúc kỹ thuật.
+2. Yêu cầu chức năng
+- Hệ thống cho phép người dùng thêm sản phẩm vào giỏ từ trang danh sách hoặc chi tiết.
+- Hệ thống phải kiểm tra hợp lệ số lượng (> 0).
+- Hệ thống phải chuyển hướng người dùng chưa đăng nhập sang trang đăng nhập 
+khi họ cố gắng thêm sản phẩm vào giỏ hàng.
+- Nếu sản phẩm đã tồn tại trong giỏ hàng, hệ thống chỉ tăng số lượng thay vì tạo thêm dòng mới.
+- Sau khi thêm sản phẩm thành công, hệ thống phải cập nhật biểu tượng giỏ hàng (số lượng) và hiển thị thông báo “Thêm thành công”.
+3. Non-functional Requirements
+- Thời gian phản hồi thao tác thêm vào giỏ < 2 giây.
+- Hỗ trợ đồng thời nhiều người dùng.
+- Hoạt động tốt trên các trình duyệt chính: Chrome, Firefox, Edge, Safari.
+- Bảo mật: Không cho phép chèn số lượng bất hợp lệ qua API
+- Giao diện thân thiện, phản hồi nhanh.
+4. Phân tích và thiết kế hệ thống
+4.1 DB design
+Table: cart
+- id (PK)
+- user_id 
+- created_at
+- updated_at
+Table: cart_item
+- id (PK)
+- cart_id (FK)
+- product_id (FK)
+- quantity
+- added_at
+4.2 API design
+- API Thêm sản phẩm vào giỏ
+    Method: Post
+    URL: /api/carts/{userId}/items
+    Request Body: { "productId": 123, "quantity": 2 }
+    Response Body: { "cartId": 456, "items": [ { "productId":123, "quantity":2 } ], "totalItems": 5 }
+
+4.3 Est thời gian thực hiện
+- Phân tích yêu cầu	: 1 giờ
+- Viết đặc tả chức năng: 1 giờ
+- Thiết kế DB: 1 giờ	
+- Thiết kế API Add to cart : 2 giờ
+- Viết UI component nút "Add to cart": 2 giờ 
+- Viết test case: 1 giờ
+- Fix bug: 1 giờ	
+- Phát triển frontend: 2 giờ
+- Kiểm thử: 2 giờ
+-> Tổng 14 giờ
