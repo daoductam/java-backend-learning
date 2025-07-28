@@ -1,0 +1,51 @@
+# Buổi 10: Codebase structure
+## monolithic (Mô hình tập trung)
+- Đóng gói trên 1 project, source code
+- Không mất nhiều thời gian setup môi trường, quá trình sản phẩm đơn giản, code build deploy trên 1 project  
+- Phát triển ngôn ngữ duy nhất -> chỉ cần nắm sâu là làm đc 
+- Dự án thực tế phát triển ko ngừng -> requirement thay đổi mỗi ngày -> team size tăng 
+-> người mới chưa hiểu sâu về hệ thống
+- Ví dụ: Có 100 dev cùng phát triển trên 1 project to -> Ko tuyển đủ ngay lập tức -> Việc triển khai khó khăn -> 1 dev có thể làm công việc của nhiều dev
+- Source Code quá lớn -> Tất cả dev phải hiểu hệ thống để maintain fix bug... nhanh chóng -> Chi phí không nhỏ
+- Source code lớn + nhân lực nhiều -> fix bug diễn ra hàng ngày hàng giờ -> conflict code
+-> Mất nhiều thời gian giảm tính sẵn sàng
+- Chung 1 ngôn ngữ -> Phụ thuộc vào nó -> ko tận dụng đc đa ngôn ngữ
+- deploy nhiều instance -> Có những thành phần ko phải scale -> Mô hình này cũng phải scale -> lãng phí tài nguyên chi phí
+    -> *Microservice ra đời.*
+## microservice
+- Biến service siêu to -> các service nhỏ hơn 
+- Ví dụ: có 100 dev thì chia 10-20 dev giải quyết order, 10-20 dev tiếp giải quyết payment.... -> Giải quyết phân việc và người với lượng team lớn
+- Thực tế dev đi và đến xảy ra thường xuyên -> dev mới chỉ cần nắm sơ sơ tông quan, đọc code, document của team để hiểu hệ thống -> rút ngắn thời gian training, giảm chi phí dự án
+-> Điểm mạnh nhất của microservice
+## So sánh
+### monolithic
+#### Ưu
+- Hỗ trợ đa ngôn ngữ, source code đơn giản, tập trung -> nhiều framework hỗ trợ
+- debug và test sẽ dễ dàng hơn
+- Performance tốt hơn nếu triển khai đúng đắn và clean code
+- Yêu cầu kiên trúc ko quá phức tạp
+#### Nhược
+- Source code theo thơi gian năng hơn -> dev mới mất nhiều thời gian để học
+- Không tận dụng được lợi thế của ngôn ngữ khác
+- Việc deployment tốn chi phí do source code lớn, thời gian deploy dài hơn 
+- Kéo theo phần ko scale -> chi phí lớn
+### microservice
+#### Ưu
+- Do chia nhiều sc nhở hơn -> sc nhở hơn -> vòng đời phát triển nhanh hơn
+- deploy nhanh hơn độc lập các service, các team ít phụ thuộc hơn
+- issu ảnh hơn đến service khác ít hơn 
+- Tận dụng điểm mạnh của đa ngôn ngữ
+#### Nhược
+- Phức tạp để thiết kế và triển khai
+- Performance chậm hơn do giao tiếp giữa các service
+- Liên quan đến vận hành và xử lý  nếu 1 hoặc nhiều service down thì xử lý như nào
+- Yêu cầu kiến thức domain, business tốt để chia service sao cho phù hợp
+- Yêu cầu kiến trúc phức tạp
+## Khi nào sử dụng 
+### Monolithic
+- Requirements nhỏ, khả năng mở rộng trong tương lai ít và đối tượng ng dùng ko có nhiều
+- Team nhỏ
+- Yêu cầu phát triển càng nhanh càng tốt
+### Microservice
+- Team lớn -> đủ nhân lực để phát triển
+- Bài toán nó lớn, khả năng mở rộng và phát triển mạnh mẽ, đối tượng người dùng rất lớn
