@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tamdao.order.e2e.ProductE2ETest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-07-23T07:30:08.777Z" hostname="TAMDAO" time="9.545">
+  <properties/>
+  <testcase name="testGetAllOrders_success()" classname="com.tamdao.order.e2e.ProductE2ETest" time="9.545"/>
+  <system-out><![CDATA[Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
