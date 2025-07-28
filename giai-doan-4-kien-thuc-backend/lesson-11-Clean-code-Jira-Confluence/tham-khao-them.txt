@@ -1,0 +1,189 @@
+1. Quy tắc chung (General Rules)
+
+    - Tuân theo quy ước chuẩn.
+    Ví dụ: Dùng camelCase cho biến, PascalCase cho class, viết hàm ngắn gọn theo Java convention.
+    
+    - Giữ mọi thứ đơn giản.
+    Ví dụ:
+    ❌ if (x == true) {...}
+    ✅ if (x) {...}
+    
+    - Quy tắc hướng đạo sinh (Boy Scout Rule): Để code tốt hơn khi bạn rời đi.
+    Ví dụ: Khi sửa bug, tiện thể refactor luôn hàm processData() dài dòng thành parseData() và validateData().
+    
+    - Tìm nguyên nhân gốc.
+    Ví dụ: Đừng fix bug bằng cách try-catch bừa → hãy điều tra và fix từ logic sai.
+
+2. Nguyên tắc thiết kế
+
+    - Đặt dữ liệu cấu hình ở cấp cao nhất.
+    Ví dụ: Đừng hardcode "timeout = 5000" trong service → hãy lấy từ application.yml.
+    
+    - Ưu tiên đa hình (polymorphism) hơn là dùng if/else hoặc switch/case.
+    Ví dụ: shape.draw(); // Mỗi class shape cụ thể override draw()
+    
+    - Tách riêng phần xử lý đa luồng.
+    Ví dụ: Đừng để Thread.sleep() lẫn trong logic nghiệp vụ.
+    
+    - Tránh cấu hình quá mức.
+    Ví dụ: Đừng làm UI hiển thị quá nhiều tuỳ chọn cấu hình không cần thiết.
+    
+    - Sử dụng dependency injection.
+    Ví dụ: Dùng @Autowired EmailService thay vì new EmailService().
+    
+    - Tuân theo Luật của Demeter: Một class chỉ nên biết về các thành phần mà nó trực tiếp sử dụng.
+    Ví dụ: 
+    ❌ order.getCustomer().getAddress().getCity()
+    ✅ order.getCustomerCity()
+
+3. Mẹo giúp dễ hiểu
+
+    - Nhất quán – Làm theo một cách thì mọi chỗ tương tự cũng nên làm như thế.
+    Ví dụ: Nếu dùng snake_case cho JSON key thì tất cả đều phải như vậy.
+
+    - Sử dụng biến có tên giải thích rõ.
+    ❌ if (s.length() > 10 && s.contains("@"))
+    ✅ boolean isEmailValid = s.length() > 10 && s.contains("@");
+    if (isEmailValid) ...
+    
+    - Đóng gói các điều kiện biên – Vì khó theo dõi nên hãy gom xử lý chúng về một nơi.
+    Ví dụ: Gộp việc check ngày đầu tháng trong hàm riêng isFirstDayOfMonth().
+    
+    - Ưu tiên dùng value object chuyên biệt thay cho kiểu nguyên thủy.
+    Ví dụ: Dùng Money class thay vì double.
+    
+    - Tránh phụ thuộc logic – Đừng viết hàm chỉ chạy đúng nếu một phần khác trong class đã thiết lập điều gì đó.
+    Ví dụ: Một hàm không nên hoạt động đúng chỉ khi hàm khác đã chạy trước đó.
+    
+    - Tránh điều kiện phủ định (if !isAvailable → nên viết lại để dễ đọc hơn).
+    ❌ if (!isNotFound)
+    ✅ if (isFound)
+
+4. Nguyên tắc đặt tên
+    - Chọn tên mô tả rõ ràng, không mơ hồ.
+    Ví dụ: calculateTotal() tốt hơn doIt().
+
+    - Tạo sự khác biệt có ý nghĩa giữa các tên
+    ❌ getUserData() vs getUserInfo() – khó hiểu.
+    ✅ getUserProfile() vs getUserLoginHistory().
+
+    - Dùng tên dễ phát âm.
+    ❌ ctrlr
+    ✅ controller
+
+    - Dùng tên dễ tìm kiếm.
+    Ví dụ: MAX_USER_COUNT dễ tìm hơn 10 rải rác khắp nơi.
+
+    - Thay các con số “ma thuật” (magic numbers) bằng hằng số có tên.
+    ❌ if (x > 86400)
+    ✅ if (x > SECONDS_PER_DAY)
+
+    - Tránh mã hóa tên – Đừng thêm tiền tố hoặc kiểu dữ liệu vào tên (ví dụ strName, intCount…).
+    ❌ strName, iCount
+    ✅ name, count
+
+5. Nguyên tắc viết hàm
+    - Nhỏ gọn.
+    ❌ Hàm dài 200 dòng.
+    ✅ Tách thành nhiều hàm nhỏ.
+
+    - Chỉ làm một việc duy nhất.
+    ✅ sendEmail() chỉ nên gửi email, không nên validate + log luôn.
+
+    - Tên mô tả rõ ràng.
+    ✅ parseOrderXml() rõ hơn handleData().
+
+    - Ưu tiên ít tham số.
+    ❌ doTask(a, b, c, d, e)
+    ✅ Gộp thành TaskParams object.
+
+    - Không có tác dụng phụ.
+    ❌ getUser() mà lại log ra file.
+    ✅ Tách riêng getUser() và logAccess().
+
+    - Không dùng tham số kiểu cờ (flag) – Thay vào đó, tách ra nhiều hàm độc lập cho dễ gọi.
+    ❌ printReport(true)
+    ✅ Tách thành printDetailedReport() và printSummaryReport()
+
+6. Nguyên tắc viết comment
+
+    - Luôn cố gắng tự giải thích bằng code.
+    ✅ Đặt tên biến tốt thì không cần comment.
+
+    - Tránh lặp lại thông tin đã có thể hiểu từ code.
+    ❌ // Set name phía trên this.name = name;
+
+    - Không thêm những lời bình dư thừa.
+
+    - Không dùng comment đóng khối (// } end if) – không cần thiết.
+    ❌ // end if sau dấu }
+
+    - Không comment-out code – hãy xóa hẳn.
+
+    - Dùng comment để:
+        - Giải thích mục đích.
+        ✅ // Áp phí ship nếu đơn hàng < 500k
+
+        - Làm rõ logic.
+
+        - Cảnh báo hệ quả hoặc rủi ro.
+        ✅ // Không được gọi hàm này trong thread chính
+
+7. Cấu trúc mã nguồn
+
+    - Tách các khái niệm theo chiều dọc.
+    Ví dụ: Controller → Service → Repository rõ ràng.
+
+    - Các đoạn code liên quan nên gần nhau.
+    Ví dụ: validateOrder() và submitOrder() đặt gần nhau.
+
+    - Khai báo biến gần nơi sử dụng.
+
+    - Hàm phụ thuộc nên đặt gần nhau.
+
+    - Hàm tương tự nên ở gần nhau.
+
+    - Viết các hàm theo thứ tự từ trên xuống dưới (top-down).
+    Ví dụ: main() → gọi validate() → gọi checkNull().
+
+    - Giữ dòng code ngắn.
+
+    - Không căn dòng theo chiều ngang.
+
+    - Dùng khoảng trắng để nhóm logic liên quan, tách logic không liên quan.
+
+    - Không phá vỡ quy tắc thụt dòng.
+
+8. Đối tượng và cấu trúc dữ liệu
+
+    - Ẩn cấu trúc nội bộ.
+    ✅ Dùng getter/setter thay vì .fieldA.fieldB.fieldC.
+
+    - Ưu tiên cấu trúc dữ liệu hơn class nếu phù hợp.
+    Ví dụ: Dùng Map<ProductId, Product> thay vì class khổng lồ.
+
+    - Tránh kiểu lai (nửa object, nửa data).
+
+    - Class nên nhỏ.
+
+    - Chỉ làm một việc.
+
+    - Số lượng biến instance nên ít.
+
+    - Lớp cha không nên biết gì về lớp con.
+
+    - Nên có nhiều hàm thay vì truyền logic vào để lựa chọn hành vi.
+
+    - Ưu tiên method non-static hơn static.
+
+9. Kiểm thử (Tests)
+
+    - Mỗi test chỉ assert một điều.
+
+    - Dễ đọc.
+
+    - Chạy nhanh.
+
+    - Độc lập.
+
+    - Có thể lặp lại.
