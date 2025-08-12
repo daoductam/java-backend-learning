@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5cc5ef2-b95c-4770-b3fd-15e8311f4156" name="Changes" comment="" />
+    <list default="true" id="e5cc5ef2-b95c-4770-b3fd-15e8311f4156" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/tamdao/order/service/OrderServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/tamdao/order/service/OrderServiceTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +35,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -54,9 +56,10 @@
     "Gradle.ProductE2ETest.testGetAllOrders_success.executor": "Coverage",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Java Study/engineer-pro/BE-Java-03-main/lecture-7-testing",
+    "last_opened_file_path": "D:/Java Study/java-backend-learning/giai-doan-4-kien-thuc-backend/lesson-15-testing/order-testing",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -224,7 +227,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/com/tamdao/order/service/OrderServiceTest.java</url>
-          <line>103</line>
+          <line>102</line>
           <properties class="com.tamdao.order.service.OrderServiceTest" method="testCreateOrder_InvalidQuantity_ThrowsException">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
