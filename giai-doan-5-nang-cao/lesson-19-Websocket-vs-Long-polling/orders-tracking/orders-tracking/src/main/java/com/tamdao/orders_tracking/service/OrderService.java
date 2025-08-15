@@ -26,7 +26,7 @@ public class OrderService {
     @Value("${app.ws.token}")
     private String wsToken;
 
-    private Optional<Order> find(String id) {
+    public Optional<Order> find(String id) {
         return orderRepository.findById(id);
     }
 
