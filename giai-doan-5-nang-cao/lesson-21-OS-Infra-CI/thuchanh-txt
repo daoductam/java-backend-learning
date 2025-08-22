@@ -1,0 +1,51 @@
+1. Viết ra các lệnh cơ bản trong linux (file, process, network…)
+- Quản lý File & Thư mục
+| Lệnh                      | Mô tả                                             |
+| ------------------------- | ------------------------------------------------- |
+| `pwd`                     | In ra đường dẫn hiện tại                          |
+| `ls`                      | Liệt kê file/thư mục trong thư mục hiện tại       |
+| `ls -l`                   | Liệt kê chi tiết (permissions, owner, size, time) |
+| `ls -a`                   | Hiện cả file ẩn                                   |
+| `cd <dir>`                | Chuyển thư mục                                    |
+| `cd ..`                   | Quay về thư mục cha                               |
+| `mkdir <dir>`             | Tạo thư mục mới                                   |
+| `touch <file>`            | Tạo file rỗng                                     |
+| `cp <src> <dest>`         | Copy file/thư mục                                 |
+| `mv <src> <dest>`         | Di chuyển/đổi tên file                            |
+| `rm <file>`               | Xoá file                                          |
+| `rm -r <dir>`             | Xoá thư mục và toàn bộ bên trong                  |
+| `cat <file>`              | In nội dung file ra màn hình                      |
+| `less <file>`             | Xem nội dung file (cuộn lên/xuống)                |
+| `head -n 10 <file>`       | Xem 10 dòng đầu của file                          |
+| `tail -n 10 <file>`       | Xem 10 dòng cuối của file                         |
+| `echo "text" > file.txt`  | Ghi nội dung vào file (ghi đè)                    |
+| `echo "text" >> file.txt` | Ghi thêm nội dung vào file                        |
+
+- Quản lý Process
+| Lệnh            | Mô tả                                           |
+| --------------- | ----------------------------------------------- |
+| `ps`            | Liệt kê process của user hiện tại               |
+| `ps aux`        | Liệt kê toàn bộ process đang chạy               |
+| `top`           | Hiển thị process theo thời gian thực (CPU, RAM) |
+| `htop`          | Giống `top` nhưng trực quan hơn (cần cài thêm)  |
+| `kill <PID>`    | Dừng process theo PID                           |
+| `kill -9 <PID>` | Buộc dừng process                               |
+| `jobs`          | Hiện các tiến trình chạy nền                    |
+| `fg %1`         | Đưa job số 1 ra foreground                      |
+| `bg %1`         | Cho job số 1 chạy background                    |
+
+- Quản lý Network
+| Lệnh                           | Mô tả                                                |
+| ------------------------------ | ---------------------------------------------------- |
+| `ifconfig` hoặc `ip addr`      | Xem cấu hình mạng (IP, MAC)                          |
+| `ping <host>`                  | Kiểm tra kết nối đến host (ví dụ: `ping google.com`) |
+| `curl <url>`                   | Gửi HTTP request đơn giản                            |
+| `wget <url>`                   | Tải file từ internet                                 |
+| `netstat -tulnp`               | Xem port đang mở và process nào sử dụng              |
+| `ss -tulnp`                    | Tương tự `netstat` (modern)                          |
+| `traceroute <host>`            | Kiểm tra đường đi gói tin đến host                   |
+| `nslookup <domain>`            | Kiểm tra DNS của domain                              |
+| `dig <domain>`                 | Truy vấn DNS chi tiết                                |
+| `scp file.txt user@host:/path` | Copy file từ local lên server qua SSH                |
+| `ssh user@host`                | Đăng nhập remote server qua SSH                      |
+
