@@ -60,3 +60,26 @@
 - Dockerhub
 - Proxy
 - dịch vụ lưu trữ đám mây
+
+3. Cách deploy thủ công (bằng tay/ bằng docker) lên server
+3.1 Cách 1: Deploy thủ công bằng tay
+- Push lên git
+- Trên render:
+    - Environment
+    - Build Command: ./gradlew build
+    - Start Command: java -jar build/libs/app.jar 
+    - Branch: main hoặc branch muốn deploy
+- Render sẽ tự động build và deploy ứng dụng.
+3.2 Cách 2: Deploy bằng Docker
+- Tạo Dockerfile:
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY build/libs/your-app.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+- chạy ./gradlew build để tạo file jar trước khi build Docker image.
+- Build và push Docker image:
+docker build -t your-image-name .
+docker tag your-image-name registry.render.com/your-app
+docker push registry.render.com/your-app
+- Render: - Chọn New Web Service -> Docker -> - Nhập đường dẫn image từ registry
+
