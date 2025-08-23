@@ -49,4 +49,14 @@
 | `scp file.txt user@host:/path` | Copy file từ local lên server qua SSH                |
 | `ssh user@host`                | Đăng nhập remote server qua SSH                      |
 
-3.  các thành phần chính của 1 hệ thống
+2. các thành phần chính của 1 hệ thống
+- Backend Service
+- Database
+- Mail
+- Kafka
+- Notification
+- Application Load Balancer
+- CDN
+- Dockerhub
+- Proxy
+- dịch vụ lưu trữ đám mây
