@@ -239,3 +239,101 @@ https://www.youtube.com/watch?v=r-aPxQ3HShs&list=PLyxSzL3F74878husgCe4IF6iJNSCjY
 - Lệnh xem tên sever: hostname
 ### Xem địa chỉ ip
 - Lệnh xem đỉa chỉ ip: ifconfig
+
+## 26. Quản trị người dùng trong hệ thống Linux
+### Quản trị User
+- có 2 tk user: tk user hệ thống và tk user ng dùng
+- User hệ thống: dùng để thực thi các module, script cần thiết phục vụ cho HĐH
+- User ng dùng: là những tk để login để sd hđh. Trong các tk user thì tk user root là tk qtrg nhất. Tài khoản này đc tự động tạo ra khi cài đặt linux. Tài khoản này k thể đổi tên hoặc xóa. Chỉ làm việc với user root khi muốn thực hiên công tác quản trị hệ thống, trong các trường hợp khác chỉ nên làm việc với tk user bình thường
+### Đặc điểm của User
+- Trên mỗi user là duy nhất, chỉ có thể đặt tên chữ thường, hoa
+- Mỗi user có 1 mẫ định danh duy nhất (uid)
+- Mỗi user có thể thuộc về nhiều nhóm
+- Tài khoản root có uid = gid = 0
+### File /etc/passwd
+- Là file văn bản chứa thông tin user. Đều có thể ddcj đc nhưng chỉ có root mới có quyền thay đổi
+- Để xem nd của file dùng lệnh: #cat /etc/passwd
+- Cấu trúc file gồm nhiều hàng mỗi hàng là 1 tt user
+![alt text](quan-tri.png)
+### File /etc/shadow
+- Là tập tin vb chứa tt về mật khảu của các tk user. Chỉ có root mới có quyền đọc tập tin này. User root có quyền reset
+![alt text](quan-tri-2.png)
+![alt text](quantri3.png)
+
+## 27 - Các câu lệnh quản trị người dùng
+### Tạo tài khoản ng dùng
+- Lệnh useradd: Tạo tk user
+- Cấu trúc lệnh: useradd [options] login_name
+- options;
+    - -c: comment
+    - -u: set user ID
+    - -d: CHỉ định thư mục home
+    - -g: Chỉ định nhóm chính
+    - -G: Chỉ định nhóm phụ
+    - -s: cjir định shell cho user sd
+### Thiết lập các chính sách (policy) cho user
+- Lệnh change: dùng để thiết lập các chính sách cho user
+- Cấu trúc lệnh: chage [options] login_name
+## 28 - Quản trị group
+### QUản trị group
+- Nhóm là tập hợp của nhiều user. Mỗi nhóm có tên duy nhất, và có 1 mã định dạh duy nhất (gid). Kji tạo 1 user(ko dùng option -g) thì mặc định 1 group tạo ra
+### File /etc/group
+- Là tập tin vb chứa thông tin về nhóm user. Mọi user có thể đọc tập tin này nhưng chỉ có root mới có quyền thay đổi 
+![alt text](group.png)
+## 29 - Các lệnh quản trị group
+### Tạo nhóm
+- Lệnh groupadd: Tạp nhóm
+- Cấu trúc lênh: groupadd [options] group
+- group: Tên nhóm định nhĩa
+### Sửa thông tin nhóm
+- Lệnh groupmod: Sửa thông tin nhóm
+- Câu trúc lệnh: groupmode [option] group
+- options:
+    - -g GID: sửa mã nhóm thành GID
+    - -n group_name: Sửa tên nhóm thành group_name
+- group: Tên nhóm càn chỉnh sửa
+### Xóa nhóm
+- Lệnh groupdel: dingf để xóa nhóm
+- Cấu trúc lệnh: groupdel group
+
+## 30 - Phân quyền trên hệ thống file và thư mục
+### Phân quyền
+- Phân quyền truy xuất đến các tài nguyên Linux là 1 vđ quan trọng
+- Phân quyền giúp tăng mức độ an toàn, đảm bảo đúng trách nhiệm - quyền hạn của từng user khi sử dụng tài nguyên trên máy
+### Quyền truy xuất
+- Quyền truy xuất trên thư mục và tập tin đc trình bày khi thực hiện leenhk ls -l
+- Đoc (read)
+- Ghi (write)
+- Thực thi (excute)
+![alt text](quyen.png)
+### Biểu diễn quyền truy xuất
+- r: read
+- w: write
+- x: excute
+- -: ko có quyền
+- Quyền hạn trên 1 file sẽ gồm 3 quyền (owner, group, others) nên ds quyền gồm 9 ký tự
+
+## 31 - Các lệnh thay đổi quyền, người, nhóm sở hữu file và thư mục
+### Lệnh chmod
+- Lệnh chmod: Thay đổi quyền truy xuất thư mụ/tập tin
+- Cấu trúc lệnh: chmod [options] Mode file
+- options:
+    - -R: áp dụng đổi với thư mục làm cho lệnh chmod có tác dụng lên tát cả thư mục con
+    - Mode: Quyền truy xuất mới trên tập tin
+### Mode: QUyền truy xuất mới trên tạp tin
+- Quyền truy xuất gán cho từng nhóm
+    - u: owner
+    - g: group
+    - o: others
+- Ký tự 
+    - "+" thêm quyền
+    - "-" Rút bớt quyền
+    - "-" gán
+### Lệnh chown
+- Lệnh chown: Thay đổi người sở hữu thư mục tập tin.
+- Cấu trúc lệnh: chown [options] owner file
+- options:
+    - -R
+    - Owner
+### Lệnh chgrp
+- Lệnh chgrp: Thay đổi nhóm sở hữu
