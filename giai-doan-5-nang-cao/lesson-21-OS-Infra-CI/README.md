@@ -337,3 +337,56 @@ https://www.youtube.com/watch?v=r-aPxQ3HShs&list=PLyxSzL3F74878husgCe4IF6iJNSCjY
     - Owner
 ### Lệnh chgrp
 - Lệnh chgrp: Thay đổi nhóm sở hữu
+
+## Hard Link và Soft Link Symbolic Link
+### Links
+- Các liên kết (links) là 1 kn qtrg trong vc quản lý file system
+### Tại sao dùng link
+- Tiết kiệm ko gian lưu trữ
+- Dễ dàng tổ chức dữ liệu
+### Hard Link
+- Là 1 liên kết trực tiếp tới 1 inode trong hệ thống tệp của linux. Khi bạn tạo 1 tệp Hard Link cho 1 tệp, thực ra bạn dang tạo ra 1 bản sao trực tiếp của inode, cho phép nhiều file trỏ tới cùng 1 dữ liệu
+- Lưu ý
+    - Ko thể tạo Hard Link cho thư mục
+    - Khi xóa 1 Hard Link, dữ liệu vẫn tồn tại cho đến khi ko có liên kết nào trỏ vào
+    - Khi thay đổi nd của tệp thông qua hard link thwucj chất đang thay đổi dữ liệu trong inode mà tát cả các hard link trỏ tới
+- Khi nào nen dùng:
+    - Khi cần tiết kiệm ko gian đĩa và ko muốn sao chép dữ liệu thực sự
+    - Khi muốn duy trì các phiên bản và sao lưu dữ liệu 1 cách hiêu quả
+    - Khi cần truy cập nhanh chóng đến các tệp với nhiều tên khác nhau
+- Lệnh: ln ten_file ten_file_can_link
+### Symolic Link (Soft Link)
+- Là 1 loại liên kết đặc biệt trong Linux. Symbolic Link tạo ra 1 liên kết từ 1 đường dẫn tới 1 tệp haowcj thư mục khác giúp tạo ra 1 biến thể dảu đường dẫn gốc
+- Lưu ý:
+    - Cho phép tạo liên kết tới các tệp và thư mục ở các vị trí khác nhau trong hệ thống tệp
+    - Có thể dễ dàng tạo xóa or di chuyển Symbolic Link mà ko làm ảnh hưởng đến file gốc
+    - Có thể trỏ tới các tệp và thưc mục trên ổ đĩa khác nhau
+    - Khi tệp và thư mục gốc bị xóa, SL sẽ trở thành có vấn đề or hỏng
+    - Khi sd SL, hệ thống cần thực hiện 1 số thao tác để theo dõi đường dẫn vì truy cậ qua SL chậm hơn so với hard link
+- Khi nào sd
+    - Khi cần tạo liên kết giữa các tệp và thưc mục ở vị trí khác nhau
+    - khi muốn tạo ra các biến thể của đường dãn gốc mà ko làm ảnh hưởng tệp gốc
+    - Khi cần tạo liên kết giữa các ổ đĩa or phân vùng khác nhau trên hệ thống
+
+## 33 - Cấu hình mạng
+### Các file cấu hình network
+- /etc/hosts: Dùng phân giải hostname ko thể phân giải đc. Có thể dung thay DNS trong hệ thống LAN
+### Các file cấu hình network
+- /etc/resolv.conf: Chỉ định DNS server
+### Định dạng tên card mạng
+- en: ethernet
+- sl: serial line IP 
+- wl: wlan
+- ww: wwan
+- ls /sys/class/net/
+### Các lệnh network
+- Xem địa chỉ ip: #ifconfig
+- Xem địa chỉ ip: ip addr
+- Tắt mở card mạng:
+    - #ifup ten_card: bật card mạng
+    - #ifdown tên card: Tắt card mạng
+- Khởi động dịch vụ:
+    - #service network restart
+    - #/etc/init.d/network restart
+    - #systemctl restart network.service
+- Xem thông tin gateway #route
